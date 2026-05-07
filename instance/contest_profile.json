@@ -1,0 +1,10 @@
+{
+  "hp": 90,
+  "maxHp": 100,
+  "streak": 6,
+  "completedContests": 0,
+  "abandonedContests": 1,
+  "wonContests": 0,
+  "totalContests": 1,
+  "quitStreak": 1
+}

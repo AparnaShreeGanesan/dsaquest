@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DSA Quest</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">D</span>
+      <div>
+        <strong>DSA Quest</strong>
+        <small>Visual learning platform</small>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#gamification" class="nav-link">🏆 Gamification</a>
+      <a href="#daily-challenges" class="nav-link">📅 Daily</a>
+      <a href="#streaks" class="nav-link">🔥 Streaks</a>
+      <a href="#visualize" class="nav-link">Visualize</a>
+      <a href="#searching" class="nav-link">Searching</a>
+      <a href="#linked-lists" class="nav-link">Lists</a>
+      <a href="#stacks" class="nav-link">Stack</a>
+      <a href="#recursion" class="nav-link">Recursion</a>
+      <a href="#practice" class="nav-link">Practice</a>
+      <a href="#quiz" class="nav-link">Quiz</a>
+      <a href="#compete" class="nav-link">Compete</a>
+    </nav>
+  </aside>
+
+  <main class="app-shell">
+    <section id="home" class="page-band hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Gamified DSA learning</p>
+        <h1>Learn algorithms by watching every decision happen.</h1>
+        <p>Explore animated simulations, connect each step to Python and Java, then lock in the concept with practice,
+          quizzes, XP, badges, and weekly challenges.</p>
+        <a href="#visualize" class="primary-action">Start visualizing</a>
+      </div>
+      <div class="dashboard-grid">
+        <div class="metric">
+          <span>Level</span>
+          <strong id="dashboard-level">1</strong>
+        </div>
+        <div class="metric">
+          <span>XP</span>
+          <strong id="dashboard-xp">0</strong>
+        </div>
+        <div class="metric">
+          <span>Streak</span>
+          <strong><span id="dashboard-streak">0</span> days 🔥</strong>
+        </div>
+        <div class="metric">
+          <span>Problems Solved</span>
+          <strong id="dashboard-solved">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMIFICATION DASHBOARD -->
+    <section id="gamification" class="page-band gamification-section">
+      <div class="section-heading">
+        <p class="eyebrow">Gamification</p>
+        <h2>Your Learning Journey</h2>
+      </div>
+
+      <div class="gamification-hub">
+        <!-- XP & Level Card -->
+        <div class="gami-card xp-card">
+          <div class="card-header">
+            <h3>Experience</h3>
+            <span class="level-badge" id="level-display">Beginner</span>
+          </div>
+          <div class="xp-progress">
+            <div class="xp-bar-wrapper">
+              <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+            </div>
+            <p class="xp-text"><span id="xp-current">0</span> / <span id="xp-next">100</span> XP</p>
+          </div>
+          <div class="xp-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total XP</span>
+              <span class="stat-value" id="total-xp">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="current-level">1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streak Card -->
+        <div class="gami-card streak-card">
+          <div class="card-header">
+            <h3>Streak 🔥</h3>
+          </div>
+          <div class="streak-display">
+            <div class="streak-number" id="streak-number">0</div>
+            <p class="streak-label">Days</p>
+          </div>
+          <div class="streak-stats">
+            <div class="stat-item">
+              <span class="stat-label">Longest</span>
+              <span class="stat-value" id="longest-streak">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Practice Days</span>
+              <span class="stat-value" id="practice-days">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements Card -->
+        <div class="gami-card achievements-card">
+          <div class="card-header">
+            <h3>Achievements</h3>
+          </div>
+          <div class="achievements-grid" id="achievements-display">
+            <!-- Populated by JavaScript -->
+          </div>
+          <p class="achievement-count"><span id="badge-count">0</span> / <span id="total-badges">12</span> earned</p>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="gami-card stats-card">
+          <div class="card-header">
+            <h3>Statistics</h3>
+          </div>
+          <div class="stats-list">
+            <div class="stat-row">
+              <span>Problems Solved</span>
+              <strong id="stat-solved">0</strong>
+            </div>
+            <div class="stat-row">
+              <span>Quizzes Completed</span>
+              <strong id="stat-quizzes">0</strong>
+            </div>
+            <div class="stat-row">
+              <span>Contests Entered</span>
+              <strong id="stat-contests">0</strong>
+            </div>
+            <div class="stat-row">
+              <span>Total Study Time</span>
+              <strong id="stat-time">0 hrs</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAILY CHALLENGES -->
+    <section id="daily-challenges" class="page-band daily-challenges-section">
+      <div class="section-heading">
+        <p class="eyebrow">Daily</p>
+        <h2>Today's Challenges</h2>
+        <p>Complete challenges to earn XP and maintain your streak!</p>
+      </div>
+
+      <div class="challenges-grid" id="challenges-container">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- STREAKS & PROGRESS -->
+    <section id="streaks" class="page-band streaks-section">
+      <div class="section-heading">
+        <p class="eyebrow">Progress</p>
+        <h2>Streaks & Milestones</h2>
+      </div>
+
+      <div class="streaks-grid">
+        <!-- Current Streak -->
+        <div class="streak-panel">
+          <div class="streak-header">
+            <h3>Current Streak</h3>
+            <span class="streak-icon">🔥</span>
+          </div>
+          <div class="streak-content">
+            <div class="big-number" id="current-streak-display">0</div>
+            <p>days of consistent learning</p>
+            <div class="streak-actions">
+              <button class="secondary-action" onclick="checkDailyLogin()">Check In Today</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Best Streak -->
+        <div class="streak-panel">
+          <div class="streak-header">
+            <h3>Best Streak</h3>
+            <span class="streak-icon">⭐</span>
+          </div>
+          <div class="streak-content">
+            <div class="big-number" id="best-streak-display">0</div>
+            <p>consecutive days</p>
+          </div>
+        </div>
+
+        <!-- Milestones -->
+        <div class="streak-panel milestones-panel">
+          <div class="streak-header">
+            <h3>Milestones</h3>
+            <span class="streak-icon">🎯</span>
+          </div>
+          <div class="milestones-list">
+            <div class="milestone" data-target="7">
+              <span class="milestone-icon">🥉</span>
+              <div class="milestone-text">
+                <p>7-Day Warrior</p>
+                <progress value="0" max="7"></progress>
+              </div>
+            </div>
+            <div class="milestone" data-target="30">
+              <span class="milestone-icon">🥈</span>
+              <div class="milestone-text">
+                <p>30-Day Legend</p>
+                <progress value="0" max="30"></progress>
+              </div>
+            </div>
+            <div class="milestone" data-target="100">
+              <span class="milestone-icon">🥇</span>
+              <div class="milestone-text">
+                <p>100-Day Master</p>
+                <progress value="0" max="100"></progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visualize" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Visualize</p>
+        <h2>Dedicated sorting simulators</h2>
+      </div>
+
+      <div class="sort-workspaces">
+        {% for id in ["bubble-sort", "quick-sort", "selection-sort", "insertion-sort"] %}
+        {% set algorithm = algorithms[id] %}
+        <article class="panel sort-panel" data-complexity-panel data-sort-panel data-algorithm="{{ id }}">
+          <div class="sort-head">
+            <div>
+              <h3>{{ algorithm.name }}</h3>
+              <p>{{ algorithm.summary }}</p>
+            </div>
+            <div class="complexity">
+              <span>Time {{ algorithm.time }}</span>
+              <span>Space {{ algorithm.space }}</span>
+            </div>
+          </div>
+
+          <div class="sort-grid">
+            <div class="sort-controls">
+              <label for="{{ id }}-values">Values</label>
+              <input id="{{ id }}-values" data-values value="42, 18, 7, 31, 55, 12, 24" inputmode="numeric">
+
+              <button class="primary-action" data-start type="button">Start</button>
+
+              <div class="control-row">
+                <button data-prev type="button" title="Previous step">Prev</button>
+                <button data-play type="button" title="Play or pause animation">Play</button>
+                <button data-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="{{ id }}-speed">Speed</label>
+              <input id="{{ id }}-speed" data-speed type="range" min="250" max="1600" step="50" value="800">
+            </div>
+
+            <div>
+              <div class="visual-guide">
+                <span><b class="dot compare-dot"></b> comparing</span>
+                <span><b class="dot active-dot"></b> moving</span>
+                <span><b class="dot done-dot"></b> fixed</span>
+              </div>
+              <div class="bars compact-bars" data-bars aria-live="polite"></div>
+              <div class="step-footer">
+                <p data-message>Press Start to generate steps.</p>
+                <span data-counter>0 / 0</span>
+              </div>
+            </div>
+
+            <div class="mini-code">
+              <div class="tabs">
+                <button class="tab active" data-code-tab="python" type="button">Python</button>
+                <button class="tab" data-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-code>{{ algorithm.python }}</code></pre>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="linked-lists" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Data Structures</p>
+        <h2>Linked list visualizations</h2>
+      </div>
+
+      <div class="list-workspaces">
+        {% for id in ["singly-linked-list", "doubly-linked-list", "circular-linked-list"] %}
+        {% set item = linked_lists[id] %}
+        <article class="panel list-panel" data-complexity-panel data-list-panel data-list="{{ id }}">
+          <div class="sort-head">
+            <div>
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.summary }}</p>
+            </div>
+          </div>
+
+          <div class="list-grid">
+            <div class="sort-controls">
+              <label for="{{ id }}-values">Node values</label>
+              <input id="{{ id }}-values" data-values value="10, 20, 30, 40" inputmode="numeric">
+
+              <button class="primary-action" data-start type="button">Start</button>
+
+              {% if id in ["singly-linked-list", "doubly-linked-list", "circular-linked-list"] %}
+              <label for="{{ id }}-operation">Operation</label>
+              <select id="{{ id }}-operation" data-list-operation>
+                <option value="insert-beginning">Insert at Beginning</option>
+                <option value="insert-end">Insert at End</option>
+                <option value="insert-position">Insert at Position</option>
+                <option value="delete-beginning">Delete at Beginning</option>
+                <option value="delete-end">Delete at End</option>
+                <option value="delete-position">Delete at Position</option>
+                <option value="search">Search</option>
+                <option value="reverse">Reverse</option>
+                <option value="sort">Sort</option>
+                {% if id == "singly-linked-list" %}
+                <option value="one-pass-sort">Sorting in One Traversal</option>
+                {% endif %}
+              </select>
+
+              <label for="{{ id }}-op-value">Value</label>
+              <input id="{{ id }}-op-value" data-list-op-value value="15" inputmode="numeric">
+
+              <label for="{{ id }}-position">Position</label>
+              <input id="{{ id }}-position" data-list-position type="number" min="1" max="20" step="1" value="2">
+
+              <button type="button" data-list-run-operation>Run Operation</button>
+              {% endif %}
+
+              <div class="control-row">
+                <button data-prev type="button" title="Previous step">Prev</button>
+                <button data-play type="button" title="Play or pause animation">Play</button>
+                <button data-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="{{ id }}-speed">Speed</label>
+              <input id="{{ id }}-speed" data-speed type="range" min="300" max="1800" step="50" value="900">
+            </div>
+
+            <div>
+              <div class="visual-guide">
+                <span><b class="dot head-dot"></b> head</span>
+                <span><b class="dot tail-dot"></b> tail</span>
+                <span><b class="dot active-dot"></b> current step</span>
+                <span><b class="dot pending-dot"></b> not created yet</span>
+                <span><b class="dot done-dot"></b> pointer linked</span>
+                <span><b class="dot validation-dot"></b> validated</span>
+              </div>
+              <div class="linked-stage" data-list-stage aria-live="polite"></div>
+              <div class="step-footer">
+                <p data-message>Press Start to generate steps.</p>
+                <span data-counter>0 / 0</span>
+              </div>
+            </div>
+
+            <div class="mini-code">
+              {% if id == "singly-linked-list" %}
+              <div class="linked-theory">
+                <strong>Theory</strong>
+                <p>Singly linked lists connect each node to the next node. Operations work by traversal and careful
+                  next-pointer updates.</p>
+              </div>
+              <div class="complexity linked-complexity">
+                <span>Insert head O(1)</span>
+                <span>Insert/search/delete O(n)</span>
+                <span>Reverse O(n)</span>
+                <span>Pointer sort O(n^2)</span>
+              </div>
+              {% endif %}
+              <div class="tabs">
+                <button class="tab active" data-code-tab="python" type="button">Python</button>
+                <button class="tab" data-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-code>{{ item.python }}</code></pre>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="stacks" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Data Structures</p>
+        <h2>Stack operations visualization</h2>
+      </div>
+
+      <article class="panel stack-viz-panel" data-complexity-panel data-stack-viz>
+        <div class="sort-head">
+          <div>
+            <h3>Stack Operations</h3>
+            <p>LIFO: the last value pushed is the first value popped.</p>
+          </div>
+          <div class="complexity">
+            <span>Push O(1)</span>
+            <span>Pop O(1)</span>
+            <span>Peek O(1)</span>
+          </div>
+        </div>
+
+        <div class="list-grid queue-grid">
+          <div class="sort-controls">
+            <label for="stack-values">Initial values</label>
+            <input id="stack-values" data-stack-values value="10, 20, 30" inputmode="numeric">
+
+            <button class="primary-action" data-stack-start type="button">Start</button>
+
+            <label for="stack-operation-value">Value</label>
+            <input id="stack-operation-value" data-stack-value value="50" inputmode="numeric">
+
+            <div class="stack-action-grid">
+              <button type="button" data-stack-push>Push</button>
+              <button type="button" data-stack-pop>Pop</button>
+              <button type="button" data-stack-peek>Peek</button>
+              <button type="button" data-stack-min>Min</button>
+              <button type="button" data-stack-max>Max</button>
+              <button type="button" data-stack-empty>isEmpty</button>
+              <button type="button" data-stack-reset>Reset</button>
+            </div>
+
+            <div class="control-row">
+              <button data-stack-prev type="button" title="Previous step">Prev</button>
+              <button data-stack-play type="button" title="Play or pause animation">Play</button>
+              <button data-stack-next type="button" title="Next step">Next</button>
+            </div>
+
+            <label for="stack-speed">Speed</label>
+            <input id="stack-speed" data-stack-speed type="range" min="300" max="1800" step="50" value="850">
+          </div>
+
+          <div>
+            <div class="visual-guide">
+              <span><b class="dot head-dot"></b> top</span>
+              <span><b class="dot active-dot"></b> active</span>
+              <span><b class="dot done-dot"></b> min/max</span>
+            </div>
+            <div class="stack-visual-stage" data-stack-stage aria-live="polite"></div>
+            <div class="stack-stats">
+              <span data-stack-top-label>top: -</span>
+              <span data-stack-size-label>size: 0</span>
+              <span data-stack-min-label>min: -</span>
+              <span data-stack-max-label>max: -</span>
+            </div>
+            <div class="step-footer">
+              <p data-stack-message>Press Start to render the stack.</p>
+              <span data-stack-counter>0 / 0</span>
+            </div>
+          </div>
+
+          <div class="mini-code">
+            <div class="structure-theory">
+              <strong>Theory</strong>
+              <p>A stack grows from bottom to top. Push places a new value on TOP, and pop removes only that TOP value.
+              </p>
+            </div>
+            <div class="tabs">
+              <button class="tab active" data-stack-code-tab="python" type="button">Python</button>
+              <button class="tab" data-stack-code-tab="java" type="button">Java</button>
+            </div>
+            <pre><code data-stack-code>{{ stacks["stack-operations"].python }}</code></pre>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="recursion" class="page-band recursion-band">
+      <div class="section-heading">
+        <p class="eyebrow">Recursion</p>
+        <h2>Master Recursion: Functions That Call Themselves</h2>
+      </div>
+
+      <div class="recursion-theory panel">
+        <div>
+          <strong>What is Recursion?</strong>
+          <p>Recursion is when a function calls itself to solve a smaller version of the same problem. Every recursive
+            function needs a <strong>base condition</strong> to stop the recursion, otherwise it would run forever!</p>
+        </div>
+        <div class="recursion-principles">
+          <span>🔄 <strong>Recursive Call:</strong> Function calls itself</span>
+          <span>🛑 <strong>Base Condition:</strong> Stops recursion</span>
+          <span>📚 <strong>Call Stack:</strong> Memory for each call</span>
+          <span>↩️ <strong>Return:</strong> Values bubble back up</span>
+        </div>
+      </div>
+
+      <div class="recursion-workspaces">
+        {% for item in [
+        {"id": "factorial", "name": "Factorial Recursion", "summary": "Learn recursion basics: factorial(n) calls
+        factorial(n-1) until n=1, then multiplies while returning up the stack.", "input": "4", "label": "n", "time":
+        "O(n)", "space": "O(n)"},
+        {"id": "fibonacci", "name": "Fibonacci Recursion", "summary": "See branching recursion: fib(n) calls fib(n-1)
+        and fib(n-2), creating a tree of recursive calls.", "input": "5", "label": "n", "time": "O(2^n)", "space":
+        "O(n)"},
+        {"id": "sum-n", "name": "Sum of N Numbers", "summary": "Understand linear recursion: sum(n) calls sum(n-1) until
+        n=0, then adds values during backtracking.", "input": "5", "label": "n", "time": "O(n)", "space": "O(n)"}
+        ] %}
+        <article class="panel recursion-panel" data-complexity-panel data-recursion-panel
+          data-recursion="{{ item.id }}">
+          <div class="sort-head">
+            <div>
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.summary }}</p>
+            </div>
+            <div class="complexity">
+              <span>Time {{ item.time }}</span>
+              <span>Space {{ item.space }}</span>
+            </div>
+          </div>
+
+          <div class="recursion-grid">
+            <div class="sort-controls">
+              <label for="recursion-{{ item.id }}-input">{{ item.label }}</label>
+              <input id="recursion-{{ item.id }}-input" data-recursion-input value="{{ item.input }}">
+
+              <button class="primary-action" data-recursion-start type="button">Start</button>
+
+              <div class="control-row">
+                <button data-recursion-prev type="button" title="Previous step">Prev</button>
+                <button data-recursion-play type="button" title="Play or pause animation">Play</button>
+                <button data-recursion-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="recursion-{{ item.id }}-speed">Speed</label>
+              <input id="recursion-{{ item.id }}-speed" data-recursion-speed type="range" min="300" max="1800" step="50"
+                value="850">
+
+              <div class="recursion-metrics">
+                <span data-recursion-call>call: -</span>
+                <span data-recursion-depth>depth: 0</span>
+                <span data-recursion-return>return: -</span>
+              </div>
+              <div class="recursion-insight" data-recursion-insight>
+                Recursion stores unfinished calls on the call stack.
+              </div>
+            </div>
+
+            <div class="recursion-stage-wrap">
+              <div class="visual-guide">
+                <span><b class="dot active-dot"></b> active call</span>
+                <span><b class="dot done-dot"></b> returned</span>
+                <span><b class="dot compare-dot"></b> base condition</span>
+                <span><b class="dot head-dot"></b> repeated call</span>
+              </div>
+              <div class="recursion-visuals">
+                <div class="recursion-stack" data-recursion-stack aria-label="Call stack"></div>
+                <div class="recursion-main-stage">
+                  <svg class="recursion-tree-svg" data-recursion-tree viewBox="0 0 760 360" role="img"
+                    aria-label="Recursion tree"></svg>
+                  <div class="recursion-custom-stage" data-recursion-stage aria-live="polite"></div>
+                </div>
+              </div>
+              <div class="step-footer">
+                <p data-recursion-message>Press Start to generate recursion steps.</p>
+                <span data-recursion-counter>0 / 0</span>
+              </div>
+              <div class="recursion-explainer" data-recursion-explainer>
+                Start the visualization to see calls push onto the stack, stop at the base condition, and pop while
+                returning values.
+              </div>
+            </div>
+
+            <div class="mini-code recursion-code">
+              <div class="structure-theory">
+                <strong>What to notice</strong>
+                <p>Calls move down the stack, the base condition stops deeper calls, and return values move upward as
+                  frames pop.</p>
+              </div>
+              <div class="tabs">
+                <button class="tab active" data-recursion-code-tab="pseudocode" type="button">Pseudo</button>
+                <button class="tab" data-recursion-code-tab="python" type="button">Python</button>
+                <button class="tab" data-recursion-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-recursion-code></code></pre>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="searching" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Searching</p>
+        <h2>Master Search Algorithms: Find Values Efficiently</h2>
+      </div>
+
+      <div class="search-workspaces">
+        {% for id in ["linear-search", "binary-search"] %}
+        {% set algorithm = algorithms[id] %}
+        <article class="panel search-panel" data-complexity-panel data-search-panel data-algorithm="{{ id }}">
+          <div class="sort-head">
+            <div>
+              <h3>{{ algorithm.name }}</h3>
+              <p>{{ algorithm.summary }}</p>
+            </div>
+            <div class="complexity">
+              <span>Time Complexity: {{ algorithm.time }}</span>
+              <span>Space {{ algorithm.space }}</span>
+            </div>
+          </div>
+
+          <div class="search-grid">
+            <div class="sort-controls">
+              <label for="{{ id }}-values">Array values</label>
+              <input id="{{ id }}-values" data-values value="5, 8, 2, 9, 1, 7, 3" inputmode="numeric">
+
+              <label for="{{ id }}-target">Target value</label>
+              <input id="{{ id }}-target" data-target value="9" inputmode="numeric">
+
+              <button class="primary-action" data-start type="button">Start Search</button>
+
+              <div class="control-row">
+                <button data-prev type="button" title="Previous step">Prev</button>
+                <button data-play type="button" title="Play or pause animation">Play</button>
+                <button data-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="{{ id }}-speed">Speed</label>
+              <input id="{{ id }}-speed" data-speed type="range" min="250" max="1600" step="50" value="800">
+            </div>
+
+            <div>
+              <div class="visual-guide">
+                <span><b class="dot compare-dot"></b> comparing</span>
+                <span><b class="dot active-dot"></b> current element</span>
+                <span><b class="dot found-dot"></b> target found</span>
+                <span><b class="dot bounds-dot"></b> search range</span>
+              </div>
+              <div class="search-stage" data-search-stage aria-live="polite">
+                <div class="search-array" data-search-array></div>
+                <div class="search-indicators" data-search-indicators>
+                  <div class="pointer-display">
+                    {% if id == "binary-search" %}
+                    <span data-left-pointer>LEFT: -</span>
+                    <span data-mid-pointer>MID: -</span>
+                    <span data-right-pointer>RIGHT: -</span>
+                    {% endif %}
+                    <span data-current-index>Current: -</span>
+                    <span data-target-display>Target: -</span>
+                  </div>
+                </div>
+              </div>
+              <div class="step-footer">
+                <p data-message>Enter array values and target, then click Start Search.</p>
+                <span data-counter>0 / 0</span>
+              </div>
+            </div>
+
+            <div class="mini-code">
+              <div class="search-theory">
+                <strong>{{ "Linear Search Theory" if id == "linear-search" else "Binary Search Theory" }}</strong>
+                {% if id == "linear-search" %}
+                <p><strong>What it does:</strong> Checks each element from left to right until target is found.</p>
+                <p><strong>When to use:</strong> Small arrays, unsorted data, simple implementation needed.</p>
+                <p><strong>Best case:</strong> O(1) - target is first element</p>
+                <p><strong>Worst case:</strong> O(n) - target not found or last element</p>
+                {% else %}
+                <p><strong>What it does:</strong> Repeatedly divides sorted search space in half by comparing target
+                  with middle element.</p>
+                <p><strong>When to use:</strong> Large sorted arrays, frequent searches, performance critical.</p>
+                <p><strong>Always:</strong> O(log n) time complexity</p>
+                <p><strong>Requires:</strong> Sorted input array</p>
+                {% endif %}
+              </div>
+              <div class="tabs">
+                <button class="tab active" data-code-tab="python" type="button">Python</button>
+                <button class="tab" data-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-code>{{ algorithm.python }}</code></pre>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="search-comparison panel">
+        <div class="comparison-header">
+          <h3>Linear Search vs Binary Search</h3>
+        </div>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <h4>🔍 Linear Search</h4>
+            <ul>
+              <li><strong>Approach:</strong> Sequential search</li>
+              <li><strong>Time:</strong> O(n)</li>
+              <li><strong>Space:</strong> O(1)</li>
+              <li><strong>Data:</strong> Works on any array</li>
+              <li><strong>Use when:</strong> Small datasets, unsorted data</li>
+            </ul>
+          </div>
+          <div class="comparison-item">
+            <h4>⚡ Binary Search</h4>
+            <ul>
+              <li><strong>Approach:</strong> Divide and conquer</li>
+              <li><strong>Time:</strong> O(log n)</li>
+              <li><strong>Space:</strong> O(1)</li>
+              <li><strong>Data:</strong> Requires sorted array</li>
+              <li><strong>Use when:</strong> Large sorted datasets</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="queue" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Data Structures</p>
+        <h2>Queue visualizations</h2>
+      </div>
+
+      <div class="queue-workspaces">
+        {% set q = queues["queue-operations"] %}
+        <article class="panel queue-panel" data-complexity-panel data-queue-panel data-queue="queue-operations"
+          data-queue-kind="queue">
+          <div class="sort-head">
+            <div>
+              <h3>{{ q.name }}</h3>
+              <p>{{ q.summary }}</p>
+            </div>
+            <div class="complexity">
+              <span>FIFO</span>
+            </div>
+          </div>
+
+          <div class="list-grid queue-grid">
+            <div class="sort-controls">
+              <label for="queue-values">Values</label>
+              <input id="queue-values" data-values value="5, 12, 7, 19" inputmode="numeric">
+
+              <label for="queue-capacity">Capacity</label>
+              <input id="queue-capacity" data-capacity type="number" min="2" max="18" step="1" value="8">
+
+              <button class="primary-action" data-start type="button">Start</button>
+
+              <div class="control-row">
+                <button data-prev type="button" title="Previous step">Prev</button>
+                <button data-play type="button" title="Play or pause animation">Play</button>
+                <button data-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="queue-speed">Speed</label>
+              <input id="queue-speed" data-speed type="range" min="300" max="1800" step="50" value="900">
+            </div>
+
+            <div>
+              <div class="visual-guide">
+                <span><b class="dot compare-dot"></b> rear</span>
+                <span><b class="dot head-dot"></b> front</span>
+                <span><b class="dot active-dot"></b> active</span>
+                <span><b class="dot done-dot"></b> in queue</span>
+              </div>
+              <div class="queue-stage" data-queue-stage aria-live="polite"></div>
+              <div class="queue-stats">
+                <span data-queue-front>front: -</span>
+                <span data-queue-rear>rear: -</span>
+                <span data-queue-size>size: -</span>
+              </div>
+              <div class="step-footer">
+                <p data-message>Press Start to generate steps.</p>
+                <span data-counter>0 / 0</span>
+              </div>
+            </div>
+
+            <div class="mini-code">
+              <div class="tabs">
+                <button class="tab active" data-code-tab="python" type="button">Python</button>
+                <button class="tab" data-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-code>{{ q.python }}</code></pre>
+            </div>
+          </div>
+        </article>
+
+        {% set cq = queues["circular-queue-operations"] %}
+        <article class="panel queue-panel" data-complexity-panel data-queue-panel
+          data-queue="circular-queue-operations">
+          <div class="sort-head">
+            <div>
+              <h3>{{ cq.name }}</h3>
+              <p>{{ cq.summary }}</p>
+            </div>
+            <div class="complexity">
+              <span>Circular</span>
+            </div>
+          </div>
+
+          <div class="list-grid queue-grid">
+            <div class="sort-controls">
+              <label for="cqueue-values">Values</label>
+              <input id="cqueue-values" data-values value="6, 2, 14, 9" inputmode="numeric">
+
+              <label for="cqueue-capacity">Capacity</label>
+              <input id="cqueue-capacity" data-capacity type="number" min="2" max="18" step="1" value="8">
+
+              <button class="primary-action" data-start type="button">Start</button>
+
+              <div class="control-row">
+                <button data-prev type="button" title="Previous step">Prev</button>
+                <button data-play type="button" title="Play or pause animation">Play</button>
+                <button data-next type="button" title="Next step">Next</button>
+              </div>
+
+              <label for="cqueue-speed">Speed</label>
+              <input id="cqueue-speed" data-speed type="range" min="300" max="1800" step="50" value="900">
+            </div>
+
+            <div>
+              <div class="visual-guide">
+                <span><b class="dot compare-dot"></b> rear</span>
+                <span><b class="dot head-dot"></b> front</span>
+                <span><b class="dot active-dot"></b> active</span>
+                <span><b class="dot done-dot"></b> in queue</span>
+              </div>
+              <div class="queue-stage" data-queue-stage aria-live="polite"></div>
+              <div class="queue-stats">
+                <span data-queue-front>front: -</span>
+                <span data-queue-rear>rear: -</span>
+                <span data-queue-size>size: -</span>
+              </div>
+              <div class="step-footer">
+                <p data-message>Press Start to generate steps.</p>
+                <span data-counter>0 / 0</span>
+              </div>
+            </div>
+
+            <div class="mini-code">
+              <div class="tabs">
+                <button class="tab active" data-code-tab="python" type="button">Python</button>
+                <button class="tab" data-code-tab="java" type="button">Java</button>
+              </div>
+              <pre><code data-code>{{ cq.python }}</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel deque-panel" data-complexity-panel data-deque-panel>
+          <div class="sort-head">
+            <div>
+              <h3>Deque</h3>
+              <p>Double-ended queue: insert and delete from both ends.</p>
+            </div>
+          </div>
+
+          <div class="list-grid queue-grid">
+            <div class="sort-controls">
+              <label for="deque-values">Values</label>
+              <input id="deque-values" data-deque-values value="4, 9, 1, 8" inputmode="numeric">
+
+              <label for="deque-capacity">Capacity</label>
+              <input id="deque-capacity" data-deque-capacity type="number" min="1" max="18" step="1" value="10">
+
+              <button class="primary-action" data-deque-start type="button">Start</button>
+
+              <label for="deque-operation-value">Operation value</label>
+              <input id="deque-operation-value" data-deque-op-value value="7" inputmode="numeric">
+
+              <div class="deque-controls">
+                <button type="button" data-deque-insert-front>Insert Front</button>
+                <button type="button" data-deque-insert-rear>Insert Rear</button>
+                <button type="button" data-deque-delete-front>Delete Front</button>
+                <button type="button" data-deque-delete-rear>Delete Rear</button>
+              </div>
+            </div>
+
+            <div class="deque-workspace">
+              <div class="deque-endpoints" aria-hidden="true">
+                <span data-deque-front>FRONT -</span>
+                <span data-deque-rear>REAR -</span>
+              </div>
+              <div class="deque-visualization" id="deque-visualization" aria-live="polite"></div>
+              <p class="deque-status" data-deque-status>Press Start to render the deque.</p>
+            </div>
+          </div>
+        </article>
+
+
+
+      </div>
+    </section>
+
+    <section id="practice" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Practice</p>
+        <h2>Practice session</h2>
+        <p class="section-subcopy">Move from each visualization into interview-style coding problems with hints,
+          approaches, dry runs, and Java/Python solutions.</p>
+      </div>
+      <div class="practice-shell" data-practice-session>
+        <div class="practice-toolbar">
+          <label>
+            Topic
+            <select data-practice-topic aria-label="Choose DSA topic"></select>
+          </label>
+          <label>
+            Difficulty
+            <select data-practice-difficulty aria-label="Filter by difficulty">
+              <option value="all">All difficulties</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="practice-summary">
+          <div>
+            <span data-practice-topic-label>Arrays</span>
+            <strong data-practice-count>0 questions</strong>
+          </div>
+          <div>
+            <span>Saved</span>
+            <strong data-practice-bookmark-count>0 favorites</strong>
+          </div>
+          <button type="button" data-practice-show-bookmarks aria-pressed="false">Show Favorites</button>
+        </div>
+
+        <div class="practice-results" data-practice-results aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="quiz" class="page-band">
+      <div class="section-heading">
+        <p class="eyebrow">Quiz</p>
+        <h2>Concept checks</h2>
+      </div>
+      <div class="quiz-strip">
+        <div>
+          <strong>Quick check</strong>
+          <p>Which algorithm requires sorted input: linear search or binary search?</p>
+        </div>
+        <button id="quizBtn" type="button">Reveal answer</button>
+        <span id="quizAnswer"></span>
+      </div>
+    </section>
+
+    <section id="compete" class="page-band">
+
+      <div class="section-heading">
+        <p class="eyebrow">Compete</p>
+        <h2>Compete session</h2>
+        <p class="section-subcopy">Enter timed DSA contests, solve multi-problem sets, submit solutions, and review
+          speed, accuracy, and weak topics.</p>
+      </div>
+
+      <div class="contest-shell compete-container" data-contest-shell>
+        <div class="contest-lobby" data-contest-lobby>
+          <div class="contest-card-grid" data-contest-cards></div>
+        </div>
+
+        <div class="contest-arena panel" data-contest-arena hidden>
+          <div class="contest-arena-head">
+            <div>
+              <span class="contest-mode">Solo practice contest</span>
+              <h3 data-contest-title>Contest</h3>
+            </div>
+            <div class="contest-gamification" data-contest-profile>
+              <div><span>HP</span><strong data-contest-hp>100</strong></div>
+              <div><span>Streak</span><strong data-contest-streak>7</strong></div>
+              <div><span>Quit</span><strong data-contest-abandoned>0</strong></div>
+            </div>
+            <div class="contest-stats">
+              <div class="contest-time-card"><span>Time Left</span><strong class="contest-timer"
+                  data-contest-timer>00:00</strong></div>
+              <div><span>Score</span><strong data-contest-score>0</strong></div>
+              <div><span>Progress</span><strong data-contest-progress>0/0</strong></div>
+            </div>
+            <button class="contest-exit-button" type="button" data-contest-exit hidden>× Exit Contest</button>
+          </div>
+
+          <div class="contest-progress-track"><span data-contest-progress-bar></span></div>
+
+          <div class="contest-layout">
+            <div class="contest-left-column">
+              <aside class="contest-problem-list" data-contest-problem-list></aside>
+
+              <article class="contest-problem-panel">
+                <div class="contest-problem-head">
+                  <div>
+                    <span data-contest-problem-difficulty class="difficulty-badge easy">Easy</span>
+                    <h4 data-contest-problem-title>Problem title</h4>
+                  </div>
+                  <span data-contest-problem-status class="contest-status pending">Not submitted</span>
+                </div>
+                <div class="contest-problem-copy" data-contest-problem-copy></div>
+              </article>
+            </div>
+
+            <section class="contest-editor-panel">
+              <div class="contest-editor-toolbar">
+                <div class="tabs" data-contest-language-tabs>
+                  <button class="tab active" data-contest-language="python" type="button">Python</button>
+                  <button class="tab" data-contest-language="java" type="button">Java</button>
+                  <button class="tab" data-contest-language="javascript" type="button">JavaScript</button>
+                </div>
+                <span data-contest-complexity>Expected O(n)</span>
+              </div>
+              <div class="code-editor" data-code-editor>
+                <pre data-editor-lines>1</pre>
+                <pre data-editor-highlight aria-hidden="true"></pre>
+                <textarea data-contest-code data-contest-autosize spellcheck="false" wrap="off"
+                  aria-label="Contest code editor"></textarea>
+              </div>
+              <div class="contest-run-row">
+                <button type="button" data-contest-run>Run Code</button>
+                <button class="primary-action" type="button" data-contest-submit>Submit Solution</button>
+                <button type="button" data-contest-reset>Reset</button>
+                <button type="button" data-contest-next>Next Problem</button>
+              </div>
+              <div class="contest-test-grid" data-contest-samples></div>
+              <div class="contest-results" data-contest-results aria-live="polite"></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="contest-bottom-grid">
+          <aside class="contest-leaderboard panel">
+            <div class="contest-side-head">
+              <span>Live board</span>
+              <strong>Top competitors</strong>
+            </div>
+            <div data-contest-leaderboard></div>
+          </aside>
+          <div class="contest-analytics panel" data-contest-analytics hidden></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Chat Button -->
+  <button id="chatbot-floating-button" class="chatbot-floating-btn" aria-label="Open chatbot" title="Ask DSA Tutor">
+    <span class="chatbot-icon">💬</span>
+  </button>
+
+  <!-- Floating Chat Widget Popup -->
+  <div id="chatbot-widget" class="chatbot-widget chatbot-closed" aria-label="DSA chatbot">
+    <div class="chatbot-header">
+      <div class="chatbot-title">
+        <strong>DSA Tutor</strong>
+        <span class="chatbot-status-indicator"><span class="online-dot"></span>Online</span>
+      </div>
+      <div class="chatbot-controls">
+        <button id="chat-clear" class="chatbot-icon-btn" type="button" title="Clear chat">🗑️</button>
+        <button id="chatbot-close-btn" class="chatbot-icon-btn" type="button" title="Close chat">✕</button>
+      </div>
+    </div>
+
+    <div class="chatbot-body">
+      <div id="chat-log" aria-live="polite"></div>
+
+      <div class="chatbot-footer">
+        <input id="chat-input" type="text" placeholder="Ask about DSA..." autocomplete="off" />
+        <button class="chatbot-send-btn" id="chat-send" type="button" title="Send message">↑</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-modal" data-quiz-modal aria-hidden="true">
+    <div class="quiz-backdrop" data-quiz-close></div>
+    <section class="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="quiz-title">
+      <div class="quiz-dialog-head">
+        <div>
+          <span>Theory Quiz</span>
+          <h3 id="quiz-title" data-quiz-title>Topic Quiz</h3>
+        </div>
+        <button class="quiz-close" type="button" data-quiz-close aria-label="Close quiz">x</button>
+      </div>
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar"><span data-quiz-progress></span></div>
+        <span data-quiz-step>Question 0/0</span>
+        <strong data-quiz-score>Score 0/0</strong>
+      </div>
+      <div class="quiz-body" data-quiz-body></div>
+    </section>
+  </div>
+
+  <div class="contest-exit-modal" data-contest-exit-modal aria-hidden="true">
+    <div class="contest-exit-backdrop" data-contest-exit-continue></div>
+    <section class="contest-exit-dialog" role="dialog" aria-modal="true" aria-labelledby="contest-exit-title">
+      <div class="contest-exit-icon">!</div>
+      <div>
+        <span>Contest warning</span>
+        <h3 id="contest-exit-title">Are you sure you want to leave the contest?</h3>
+        <p>Leaving the contest will reduce HP, affect your streak, and count as contest abandonment.</p>
+      </div>
+      <ul>
+        <li>HP penalty increases after repeated quits.</li>
+        <li>Contest streak drops immediately.</li>
+        <li>Abandonment is recorded in performance stats.</li>
+      </ul>
+      <div class="contest-exit-actions">
+        <button type="button" data-contest-exit-continue>Continue Contest</button>
+        <button class="contest-danger-action" type="button" data-contest-exit-confirm>Leave Anyway</button>
+      </div>
+    </section>
+  </div>
+
+
+
+  <script>
+    window.DSA_ALGORITHMS = {{ algorithms | tojson }};
+    window.DSA_LINKED_LISTS = {{ linked_lists | tojson }};
+    window.DSA_STACKS = {{ stacks | tojson }};
+    window.DSA_QUEUES = {{ queues | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+
+</html>
