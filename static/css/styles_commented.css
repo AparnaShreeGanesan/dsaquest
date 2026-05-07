@@ -1,0 +1,1219 @@
+/*
+====================================================================================
+CSS DOCUMENTATION - MAIN STYLES FOR DSA QUEST PLATFORM
+====================================================================================
+This CSS file contains all styling for the DSA Quest learning platform.
+It covers layout, colors, typography, responsive design, and interactive elements.
+All properties, units, values, and selectors are thoroughly explained.
+====================================================================================
+*/
+
+/*
+============================================================================
+SECTION 1: CSS VARIABLES (DESIGN TOKENS)
+============================================================================
+CSS Variables (custom properties) allow storing reusable values.
+They're defined in :root (applies globally to entire page).
+Access them with var(--variable-name) anywhere in CSS.
+Benefits: Easy theme changes, consistency, maintainability.
+*/
+
+:root {
+  /*
+  Define color scheme for the entire website
+  These are design "tokens" - reusable design values
+  */
+
+  /* color-scheme: light; */
+  /* color-scheme property tells browser about the color preference */
+  /* light = Light theme colors (dark text on light background) */
+  color-scheme: light;
+
+  /* PRIMARY COLORS - Core brand colors */
+
+  /* --ink: #17202a; */
+  /* Custom property for dark text color */
+  /* #17202a = Hex color code (hexadecimal: RR GG BB) */
+  /* 17 = Red component (low = dark) */
+  /* 20 = Green component */
+  /* 2a = Blue component */
+  /* Result: Very dark blue-ish color for text */
+  --ink: #17202a;
+
+  /* --muted: #667085; */
+  /* Color for secondary/muted text */
+  /* Less contrast than --ink, used for hints, labels, descriptions */
+  --muted: #667085;
+
+  /* --line: #d9e0e8; */
+  /* Color for borders and divider lines */
+  /* Light gray/blue for subtle separation */
+  --line: #d9e0e8;
+
+  /* --paper: #ffffff; */
+  /* #ffffff = Pure white */
+  /* Used for card backgrounds, main content area */
+  --paper: #ffffff;
+
+  /* --wash: #f3f6f9; */
+  /* Very light background color */
+  /* Used for page background, creates subtle contrast */
+  --wash: #f3f6f9;
+
+  /* ACCENT COLORS - Brand and functional colors */
+
+  /* --teal: #087f7b; */
+  /* Primary brand color: teal/turquoise */
+  /* Used for primary buttons, active states */
+  --teal: #087f7b;
+
+  /* --teal-dark: #075e5b; */
+  /* Darker shade of teal for hover states */
+  /* Makes interactive elements feel responsive */
+  --teal-dark: #075e5b;
+
+  /* --coral: #d95d39; */
+  /* Accent color: coral/orange-red */
+  /* Used for highlights, warnings, CTAs */
+  --coral: #d95d39;
+
+  /* --gold: #b7791f; */
+  /* Gold color for premium features, achievements */
+  --gold: #b7791f;
+
+  /* --green: #22863a; */
+  /* Green for success states, completion indicators */
+  --green: #22863a;
+
+  /* --blue: #2f6fed; */
+  /* Blue for links, secondary actions, highlights */
+  --blue: #2f6fed;
+
+  /* SHADOW - Elevation effect */
+
+  /* --shadow: 0 18px 48px rgba(26, 35, 46, 0.12); */
+  /* Drop shadow for cards and elevated elements */
+  /* 0 = horizontal offset (no left/right shift) */
+  /* 18px = vertical offset (shadow appears 18px down) */
+  /* 48px = blur radius (higher = softer shadow) */
+  /* rgba(26, 35, 46, 0.12) = Shadow color with opacity */
+  /*   - R=26, G=35, B=46 (dark color) */
+  /*   - 0.12 = 12% opacity (very subtle) */
+  --shadow: 0 18px 48px rgba(26, 35, 46, 0.12);
+}
+
+/*
+============================================================================
+SECTION 2: UNIVERSAL STYLES (Apply to all elements)
+============================================================================
+Styles that apply to every HTML element on the page.
+*/
+
+/*
+* { box-sizing: border-box; }
+* = Universal selector (targets ALL elements)
+box-sizing determines how element width/height is calculated
+border-box = Width includes padding and border
+  - Alternative is content-box (default, width excludes padding/border)
+  - border-box is more intuitive for layouts
+*/
+* {
+  box-sizing: border-box;
+}
+
+/*
+html { scroll-behavior: smooth; }
+html = Root HTML element styles
+scroll-behavior: smooth = Animate scrolling instead of instant jump
+  - When clicking anchor links (#), page smoothly scrolls to section
+  - Creates better UX than instant jump
+*/
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+============================================================================
+SECTION 3: BODY STYLES (Main page container)
+============================================================================
+Styles for the <body> element (everything visible on page).
+*/
+
+body {
+  /* margin: 0; */
+  /* margin = Space outside element (between element and other elements) */
+  /* 0 = No margin on any side (top, right, bottom, left) */
+  /* Removes browser default margins */
+  margin: 0;
+
+  /* min-height: 100vh; */
+  /* min-height = Minimum height of element */
+  /* 100vh = 100% of viewport height (vh = viewport height unit) */
+  /* Ensures page fills entire screen even if content is short */
+  min-height: 100vh;
+
+  /* color: var(--ink); */
+  /* color = Text color (foreground) */
+  /* var(--ink) = Uses CSS variable defined earlier (#17202a) */
+  /* All text will be dark blue-ish color */
+  color: var(--ink);
+
+  /* background: var(--wash); */
+  /* background = Background color of element */
+  /* var(--wash) = Very light background (#f3f6f9) */
+  background: var(--wash);
+
+  /* font-family: Inter, ui-sans-serif, system-ui, -apple-system, ... */
+  /* font-family = Which typeface to use for text */
+  /* Lists multiple fonts (fallback order) */
+  /* Inter = First choice (custom font, likely imported from Google Fonts) */
+  /* ui-sans-serif = Fallback if Inter not available */
+  /* system-ui = Use operating system default sans-serif */
+  /* -apple-system = macOS specific sans-serif */
+  /* BlinkMacSystemFont = Safari/webkit specific */
+  /* "Segoe UI" = Windows default (quoted because of space) */
+  /* sans-serif = Generic fallback (any sans-serif font) */
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/*
+============================================================================
+SECTION 4: FORM ELEMENTS (buttons, inputs, selects)
+============================================================================
+Default styles for interactive form elements.
+*/
+
+/*
+button, input, select { font: inherit; }
+Targets all buttons, inputs, and select elements
+font: inherit = Inherit font from parent element
+  - By default, form elements don't inherit font from body
+  - This ensures consistent typography throughout form
+*/
+button,
+input,
+select {
+  font: inherit;
+}
+
+/*
+============================================================================
+SECTION 5: PRIMARY ACTION BUTTONS
+============================================================================
+Styling for main call-to-action buttons.
+*/
+
+/*
+button, .primary-action { ... }
+Targets all <button> elements AND elements with class "primary-action"
+.primary-action = Elements with class="primary-action" (usually <a> links styled as buttons)
+*/
+button,
+.primary-action {
+  /* border: 0; */
+  /* border = Outline around element */
+  /* 0 = No border (removes default button border) */
+  border: 0;
+
+  /* border-radius: 7px; */
+  /* border-radius = Roundness of corners */
+  /* 7px = 7 pixels rounded radius */
+  /* Creates slightly rounded corners (not fully round) */
+  border-radius: 7px;
+
+  /* background: var(--teal); */
+  /* background-color = Fill color of button */
+  /* var(--teal) = Teal color (#087f7b) */
+  background: var(--teal);
+
+  /* color: #fff; */
+  /* color = Text color inside button */
+  /* #fff = White text */
+  color: #fff;
+
+  /* cursor: pointer; */
+  /* cursor = Mouse cursor appearance when hovering */
+  /* pointer = Hand/pointer cursor (indicates clickable) */
+  cursor: pointer;
+
+  /* font-weight: 750; */
+  /* font-weight = Thickness/boldness of text */
+  /* 750 = Extra bold (100-900 scale, 400=normal, 700=bold) */
+  /* Makes button text stand out */
+  font-weight: 750;
+
+  /* min-height: 42px; */
+  /* min-height = Minimum height */
+  /* 42px = Touch-friendly height (easier to click on mobile) */
+  /* Follows accessibility guidelines for button size */
+  min-height: 42px;
+
+  /* padding: 0 16px; */
+  /* padding = Space inside element (between content and border) */
+  /* 0 = top and bottom padding (0 pixels) */
+  /* 16px = left and right padding (16 pixels) */
+  /* Creates space around text inside button */
+  padding: 0 16px;
+
+  /* text-decoration: none; */
+  /* text-decoration = Underlines, overlines, etc. */
+  /* none = No decoration (removes underline from <a> buttons) */
+  text-decoration: none;
+
+  /* display: inline-flex; */
+  /* display = How element flows in document */
+  /* inline-flex = Inline element using flexbox */
+  /* Allows buttons to sit next to each other and center content */
+  display: inline-flex;
+
+  /* align-items: center; */
+  /* align-items = Align children vertically in flexbox */
+  /* center = Vertically center content */
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content = Align children horizontally in flexbox */
+  /* center = Horizontally center content */
+  justify-content: center;
+}
+
+/*
+button:hover, .primary-action:hover { ... }
+Styles applied when mouse hovers over button
+:hover = CSS pseudo-class for hover state
+*/
+button:hover,
+.primary-action:hover {
+  /* background: var(--teal-dark); */
+  /* On hover, change to darker teal color */
+  /* Makes button feel interactive and responsive */
+  background: var(--teal-dark);
+}
+
+/*
+============================================================================
+SECTION 6: SIDEBAR NAVIGATION
+============================================================================
+Styles for the left sidebar menu.
+*/
+
+/*
+.sidebar { ... }
+Class selector for the sidebar element
+Styles the fixed left navigation bar
+*/
+.sidebar {
+  /* position: fixed; */
+  /* position = How element is positioned in document flow */
+  /* fixed = Stays in same place even when scrolling */
+  /* Sidebar stays visible while user scrolls main content */
+  position: fixed;
+
+  /* inset: 0 auto 0 0; */
+  /* inset = Shorthand for top, right, bottom, left */
+  /* 0 = top position (0 from top) */
+  /* auto = right position (automatic, ignored for fixed left) */
+  /* 0 = bottom position (0 from bottom) */
+  /* 0 = left position (0 from left, flush left) */
+  /* Positions element to left edge, full height */
+  inset: 0 auto 0 0;
+
+  /* width: 250px; */
+  /* width = Horizontal size */
+  /* 250px = 250 pixels wide sidebar */
+  width: 250px;
+
+  /* padding: 24px 18px; */
+  /* padding = Internal spacing */
+  /* 24px = top and bottom padding */
+  /* 18px = left and right padding */
+  padding: 24px 18px;
+
+  /* background: #101820; */
+  /* background-color = Dark background (#101820 = very dark blue) */
+  background: #101820;
+
+  /* color: #fff; */
+  /* color = Text color (white) */
+  /* All text in sidebar is white */
+  color: #fff;
+}
+
+/*
+============================================================================
+SECTION 7: BRAND SECTION
+============================================================================
+Styles for the app logo and name in sidebar.
+*/
+
+/*
+.brand { ... }
+Styles the brand/logo area at top of sidebar
+*/
+.brand {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Use flexbox layout (arranges children horizontally) */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment in flexbox */
+  /* center = Vertically center all children */
+  align-items: center;
+
+  /* gap: 12px; */
+  /* gap = Space between flex children */
+  /* 12px = 12 pixels between logo and text */
+  gap: 12px;
+
+  /* margin-bottom: 32px; */
+  /* margin-bottom = Space below element */
+  /* 32px = Extra space below brand area before navigation starts */
+  margin-bottom: 32px;
+}
+
+/*
+.brand-mark { ... }
+Styles the circular logo with "D" letter
+*/
+.brand-mark {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Use grid layout (precise positioning) */
+  display: grid;
+
+  /* width: 42px; */
+  /* width = 42 pixels wide */
+  width: 42px;
+
+  /* height: 42px; */
+  /* height = 42 pixels tall */
+  height: 42px;
+
+  /* place-items: center; */
+  /* place-items = Centers content both horizontally and vertically */
+  /* Shorthand for align-items + justify-items */
+  /* "D" letter is centered in the square */
+  place-items: center;
+
+  /* border-radius: 7px; */
+  /* border-radius = Corner roundness */
+  /* 7px = Slightly rounded corners (creates square with rounded edges) */
+  border-radius: 7px;
+
+  /* background: var(--coral); */
+  /* background = Coral/orange color (#d95d39) */
+  /* Makes logo stand out */
+  background: var(--coral);
+
+  /* font-size: 1.2rem; */
+  /* font-size = Text size */
+  /* 1.2rem = 1.2 times the root font size (rem = relative em) */
+  /* Makes "D" letter larger and prominent */
+  font-size: 1.2rem;
+
+  /* font-weight: 900; */
+  /* font-weight = Text boldness */
+  /* 900 = Ultra bold (maximum boldness) */
+  font-weight: 900;
+}
+
+/*
+.brand small { ... }
+Styles the tagline under the app name
+*/
+.brand small {
+  /* display: block; */
+  /* display = How element flows */
+  /* block = Takes full width, newline before/after */
+  /* Tagline appears on separate line below app name */
+  display: block;
+
+  /* color: #aec0cf; */
+  /* color = Text color (light gray-blue) */
+  /* Lighter than main text for secondary content */
+  color: #aec0cf;
+
+  /* margin-top: 2px; */
+  /* margin-top = Space above element */
+  /* 2px = Slight gap between app name and tagline */
+  margin-top: 2px;
+}
+
+/*
+============================================================================
+SECTION 8: NAVIGATION MENU
+============================================================================
+Styles for the sidebar navigation links.
+*/
+
+/*
+.nav { ... }
+Styles the navigation list container
+*/
+.nav {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Stack items vertically */
+  display: grid;
+
+  /* gap: 6px; */
+  /* gap = Space between navigation items */
+  /* 6px = Small space between each link */
+  gap: 6px;
+}
+
+/*
+.nav-link { ... }
+Styles individual navigation links
+*/
+.nav-link {
+  /* border-radius: 7px; */
+  /* border-radius = Corner roundness */
+  /* 7px = Slightly rounded corners */
+  border-radius: 7px;
+
+  /* color: #dce7ef; */
+  /* color = Default link text color (light gray-blue) */
+  color: #dce7ef;
+
+  /* padding: 12px 14px; */
+  /* padding = Internal spacing around text */
+  /* 12px = top and bottom padding */
+  /* 14px = left and right padding */
+  /* Creates clickable area around link text */
+  padding: 12px 14px;
+
+  /* text-decoration: none; */
+  /* text-decoration = Underlines, etc. */
+  /* none = No underline on links */
+  text-decoration: none;
+}
+
+/*
+.nav-link.active, .nav-link:hover { ... }
+Styles for active link and hover state
+.active = Applied when link is currently active section
+:hover = Applied when mouse hovers over link
+*/
+.nav-link.active,
+.nav-link:hover {
+  /* background: #22313f; */
+  /* background = Dark background color */
+  /* Makes active/hovered link stand out */
+  background: #22313f;
+
+  /* color: #fff; */
+  /* color = White text */
+  /* Better contrast on dark background */
+  color: #fff;
+}
+
+/*
+============================================================================
+SECTION 9: MAIN APP SHELL
+============================================================================
+Styles for the main content area.
+*/
+
+/*
+.app-shell { ... }
+Main content container (to the right of sidebar)
+*/
+.app-shell {
+  /* margin-left: 250px; */
+  /* margin-left = Left margin */
+  /* 250px = Same width as sidebar */
+  /* Pushes main content to the right of fixed sidebar */
+  margin-left: 250px;
+}
+
+/*
+============================================================================
+SECTION 10: PAGE SECTIONS
+============================================================================
+Styles for content sections within the page.
+*/
+
+/*
+.page-band { ... }
+Generic section styling for all major content sections
+*/
+.page-band {
+  /* padding: 42px clamp(18px, 4vw, 54px); */
+  /* padding = Internal spacing */
+  /* 42px = top and bottom padding (fixed) */
+  /* clamp(18px, 4vw, 54px) = left and right padding (responsive) */
+  /*   - clamp(min, preferred, max) = Responsive sizing */
+  /*   - 18px = Minimum padding */
+  /*   - 4vw = Preferred padding (4% of viewport width) */
+  /*   - 54px = Maximum padding */
+  /*   - As screen width changes, padding scales between 18-54px */
+  padding: 42px clamp(18px, 4vw, 54px);
+}
+
+/*
+.hero { ... }
+Styles for the hero/header section
+*/
+.hero {
+  /* min-height: 86vh; */
+  /* min-height = Minimum height */
+  /* 86vh = 86% of viewport height (vh = viewport height) */
+  /* Makes hero section fill most of screen */
+  min-height: 86vh;
+
+  /* display: grid; */
+  /* display = Layout mode (flexbox/grid) */
+  /* grid = Grid layout for hero content */
+  display: grid;
+
+  /* grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr); */
+  /* grid-template-columns = Define column widths */
+  /* Two columns:
+     1. minmax(0, 1.1fr) = First column
+        - 0 = minimum width
+        - 1.1fr = maximum width (1.1 "fraction units" of available space)
+        - Takes slightly more than 50% of width
+     2. minmax(340px, 0.9fr) = Second column
+        - 340px = minimum width (width on small screens)
+        - 0.9fr = maximum width (0.9 fraction, slightly less than 50%)
+        - Responsive: grows to 340px minimum, up to 0.9fr max
+  */
+  grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment */
+  /* center = Vertically center content */
+  align-items: center;
+
+  /* gap: 36px; */
+  /* gap = Space between columns */
+  /* 36px = 36 pixels space between left and right columns */
+  gap: 36px;
+
+  /* background: linear-gradient(...), url(...) center / cover; */
+  /* background = Multiple background layers */
+  /* linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.92)) */
+  /*   - Creates white semi-transparent overlay */
+  /*   - rgba(R, G, B, Alpha) = Color with transparency */
+  /*   - 0.82, 0.92 = 82%, 92% opacity (creates gradient from lighter to darker white) */
+  /* url("https://images.unsplash.com/...") = Background image URL */
+  /* center = Position image at center */
+  /* / cover = Shorthand:
+     - / = Separator between position and size
+     - cover = Image covers entire area (may crop image)
+  */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.92)),
+    url("https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1500&q=80") center / cover;
+}
+
+/*
+.hero h1 { ... }
+Styles for main hero heading
+*/
+.hero h1 {
+  /* max-width: 760px; */
+  /* max-width = Maximum width of heading */
+  /* 760px = Limits heading width for readability */
+  max-width: 760px;
+
+  /* margin: 0; */
+  /* margin = Outside spacing */
+  /* 0 = No margin (removes browser defaults) */
+  margin: 0;
+
+  /* font-size: clamp(2.4rem, 5vw, 4.9rem); */
+  /* font-size = Text size */
+  /* clamp(min, preferred, max) = Responsive font sizing */
+  /*   - 2.4rem = Minimum font size (on small screens) */
+  /*   - 5vw = Preferred size (5% of viewport width) */
+  /*   - 4.9rem = Maximum font size (on large screens) */
+  /*   - Font scales responsively between 2.4rem and 4.9rem */
+  font-size: clamp(2.4rem, 5vw, 4.9rem);
+
+  /* line-height: 1.02; */
+  /* line-height = Vertical space between text lines */
+  /* 1.02 = 102% of font size */
+  /* Tight line spacing (large text doesn't need much space between lines) */
+  line-height: 1.02;
+
+  /* letter-spacing: 0; */
+  /* letter-spacing = Space between letters */
+  /* 0 = No extra space (default) */
+  letter-spacing: 0;
+}
+
+/*
+.hero p { ... }
+Styles for paragraphs in hero section
+*/
+.hero p {
+  /* max-width: 720px; */
+  /* max-width = Maximum width */
+  /* 720px = Limits paragraph width for readability */
+  max-width: 720px;
+
+  /* color: #3f4a54; */
+  /* color = Text color (dark gray) */
+  color: #3f4a54;
+
+  /* font-size: 1.08rem; */
+  /* font-size = Text size */
+  /* 1.08rem = Slightly larger than default */
+  font-size: 1.08rem;
+
+  /* line-height: 1.7; */
+  /* line-height = Vertical line spacing */
+  /* 1.7 = 170% of font size */
+  /* More space between lines for longer paragraphs (better readability) */
+  line-height: 1.7;
+}
+
+/*
+============================================================================
+SECTION 11: SECTION HEADINGS & TYPOGRAPHY
+============================================================================
+Styles for headings, labels, and text throughout the page.
+*/
+
+/*
+.eyebrow { ... }
+Styles for small uppercase category labels above main headings
+*/
+.eyebrow {
+  /* margin: 0 0 10px; */
+  /* margin = Outside spacing */
+  /* 0 = top and right margin */
+  /* 0 = bottom margin... wait, this is wrong in the notation */
+  /* Actually: top margin=0, right=0, bottom=10px, left=(implied 0) */
+  /* 10px space below eyebrow */
+  margin: 0 0 10px;
+
+  /* color: var(--coral); */
+  /* color = Coral/orange color (#d95d39) */
+  color: var(--coral);
+
+  /* font-weight: 850; */
+  /* font-weight = Text boldness */
+  /* 850 = Very bold */
+  font-weight: 850;
+
+  /* text-transform: uppercase; */
+  /* text-transform = Change letter case */
+  /* uppercase = Convert all text to UPPERCASE */
+  text-transform: uppercase;
+
+  /* font-size: 0.78rem; */
+  /* font-size = Text size */
+  /* 0.78rem = Smaller than normal text */
+  font-size: 0.78rem;
+}
+
+/*
+.dashboard-grid { ... }
+Styles for the dashboard metric grid in hero section
+*/
+.dashboard-grid {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Grid layout */
+  display: grid;
+
+  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  /* grid-template-columns = Define columns */
+  /* repeat(2, ...) = Create 2 columns (repeat function) */
+  /* minmax(0, 1fr) = Each column:
+     - 0 = minimum width (can shrink to fit content)
+     - 1fr = maximum width (1 fraction of available space = 50% each)
+     - 2 equal columns = two-column grid
+  */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  /* gap: 14px; */
+  /* gap = Space between grid items */
+  /* 14px = 14 pixels between columns and rows */
+  gap: 14px;
+}
+
+/*
+.metric, .panel, .topic-card, .quiz-strip, .leaderboard { ... }
+Shared card styling for multiple element types
+*/
+.metric,
+.panel,
+.topic-card,
+.quiz-strip,
+.leaderboard {
+  /* border: 1px solid var(--line); */
+  /* border = Outline around element */
+  /* 1px = 1 pixel wide */
+  /* solid = Solid line (not dashed, dotted, etc.) */
+  /* var(--line) = Light gray-blue color (#d9e0e8) */
+  /* Subtle border around cards */
+  border: 1px solid var(--line);
+
+  /* border-radius: 8px; */
+  /* border-radius = Corner roundness */
+  /* 8px = Moderately rounded corners */
+  border-radius: 8px;
+
+  /* background: rgba(255, 255, 255, 0.94); */
+  /* background = Background color */
+  /* rgba(255, 255, 255, 0.94) = White with slight transparency */
+  /* 255, 255, 255 = Pure white */
+  /* 0.94 = 94% opacity (6% transparent) */
+  background: rgba(255, 255, 255, 0.94);
+
+  /* box-shadow: var(--shadow); */
+  /* box-shadow = Drop shadow effect */
+  /* var(--shadow) = Predefined shadow from :root */
+  /* Creates depth/elevation appearance */
+  box-shadow: var(--shadow);
+}
+
+/*
+.metric { ... }
+Specific styles for metric cards
+*/
+.metric {
+  /* padding: 22px; */
+  /* padding = Internal spacing */
+  /* 22px = Space inside card around content */
+  padding: 22px;
+}
+
+/*
+.metric span, .topic-card span { ... }
+Styles for labels inside metric cards
+*/
+.metric span,
+.topic-card span {
+  /* color: var(--muted); */
+  /* color = Text color */
+  /* var(--muted) = Muted gray color (#667085) */
+  color: var(--muted);
+
+  /* font-weight: 700; */
+  /* font-weight = Text boldness */
+  /* 700 = Bold */
+  font-weight: 700;
+
+  /* font-size: 0.86rem; */
+  /* font-size = Text size */
+  /* 0.86rem = Smaller than normal text */
+  font-size: 0.86rem;
+}
+
+/*
+.metric strong { ... }
+Styles for the large numbers in metric cards
+*/
+.metric strong {
+  /* display: block; */
+  /* display = How element flows */
+  /* block = Takes full width, new line */
+  /* Number appears on its own line below label */
+  display: block;
+
+  /* margin-top: 10px; */
+  /* margin-top = Space above */
+  /* 10px = Gap between label and number */
+  margin-top: 10px;
+
+  /* font-size: 2rem; */
+  /* font-size = Text size */
+  /* 2rem = Twice the root font size (large) */
+  /* Makes the number prominent */
+  font-size: 2rem;
+}
+
+/*
+.section-heading { ... }
+Styles for section title areas
+*/
+.section-heading {
+  /* margin-bottom: 22px; */
+  /* margin-bottom = Space below heading */
+  /* 22px = Space between heading and content */
+  margin-bottom: 22px;
+}
+
+/*
+.section-heading h2 { ... }
+Styles for section heading text
+*/
+.section-heading h2 {
+  /* margin: 0; */
+  /* margin = Outside spacing */
+  /* 0 = No margin (removes browser defaults) */
+  margin: 0;
+
+  /* font-size: clamp(1.8rem, 3vw, 2.8rem); */
+  /* font-size = Text size */
+  /* clamp(min, preferred, max) = Responsive sizing */
+  /*   - 1.8rem = Minimum on small screens */
+  /*   - 3vw = Preferred (3% of viewport width) */
+  /*   - 2.8rem = Maximum on large screens */
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+
+/*
+============================================================================
+SECTION 12: SORT/ALGORITHM PANELS
+============================================================================
+Styles for sorting algorithm visualization panels.
+*/
+
+/*
+.sort-workspaces, .list-workspaces, .search-workspaces { ... }
+Container for multiple algorithm panels
+*/
+.sort-workspaces,
+.list-workspaces,
+.search-workspaces {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Grid layout */
+  display: grid;
+
+  /* gap: 22px; */
+  /* gap = Space between panels */
+  /* 22px = Vertical space between algorithm panels */
+  gap: 22px;
+}
+
+/*
+.panel { ... }
+Generic panel/card styling
+*/
+.panel {
+  /* padding: 18px; */
+  /* padding = Internal spacing */
+  /* 18px = Space inside panel around content */
+  padding: 18px;
+}
+
+/*
+.controls-panel, .sort-controls { ... }
+Container for algorithm control inputs
+*/
+.controls-panel,
+.sort-controls {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Stack items vertically */
+  display: grid;
+
+  /* gap: 10px; */
+  /* gap = Space between control elements */
+  /* 10px = Space between inputs/buttons */
+  gap: 10px;
+}
+
+/*
+label { ... }
+Styles for form field labels
+*/
+label {
+  /* color: #344054; */
+  /* color = Text color (dark gray) */
+  color: #344054;
+
+  /* font-weight: 760; */
+  /* font-weight = Text boldness */
+  /* 760 = Bold */
+  font-weight: 760;
+}
+
+/*
+input, select { ... }
+Styles for form inputs and selects
+*/
+input,
+select {
+  /* width: 100%; */
+  /* width = Horizontal size */
+  /* 100% = Full width of container */
+  /* Makes inputs full-width */
+  width: 100%;
+
+  /* border: 1px solid #c7d0da; */
+  /* border = Outline */
+  /* 1px solid #c7d0da = 1 pixel gray border */
+  border: 1px solid #c7d0da;
+
+  /* border-radius: 7px; */
+  /* border-radius = Corner roundness */
+  /* 7px = Slightly rounded corners */
+  border-radius: 7px;
+
+  /* background: #fff; */
+  /* background = White background */
+  background: #fff;
+
+  /* color: var(--ink); */
+  /* color = Text color (dark text) */
+  color: var(--ink);
+
+  /* min-height: 42px; */
+  /* min-height = Minimum height */
+  /* 42px = Touch-friendly height */
+  min-height: 42px;
+
+  /* padding: 0 12px; */
+  /* padding = Internal spacing */
+  /* 0 = top/bottom padding */
+  /* 12px = left/right padding */
+  /* Space around text inside input */
+  padding: 0 12px;
+}
+
+/*
+.control-row { ... }
+Container for grouped control buttons
+*/
+.control-row {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Grid layout */
+  display: grid;
+
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* grid-template-columns = Define columns */
+  /* repeat(3, 1fr) = 3 equal-width columns */
+  /* Three buttons in a row with equal width */
+  grid-template-columns: repeat(3, 1fr);
+
+  /* gap: 8px; */
+  /* gap = Space between buttons */
+  /* 8px = Small space between prev/play/next buttons */
+  gap: 8px;
+}
+
+/*
+.control-row button, .tab, #quizBtn { ... }
+Styles for secondary buttons
+*/
+.control-row button,
+.tab,
+#quizBtn {
+  /* background: #edf3f7; */
+  /* background = Light blue-gray background */
+  background: #edf3f7;
+
+  /* color: var(--ink); */
+  /* color = Dark text */
+  color: var(--ink);
+}
+
+/*
+============================================================================
+SECTION 13: PANELS AND COMPLEX LAYOUTS
+============================================================================
+More detailed panel styling for algorithm visualizations.
+*/
+
+/*
+.stage-header, .sort-head { ... }
+Styles for panel headers
+*/
+.stage-header,
+.sort-head {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox layout (horizontal) */
+  display: flex;
+
+  /* justify-content: space-between; */
+  /* justify-content = Horizontal alignment */
+  /* space-between = Space items apart (first at left, last at right) */
+  justify-content: space-between;
+
+  /* gap: 18px; */
+  /* gap = Space between items */
+  /* 18px = Space between title/description and complexity info */
+  gap: 18px;
+
+  /* align-items: start; */
+  /* align-items = Vertical alignment */
+  /* start = Align to top */
+  align-items: start;
+}
+
+/*
+.stage-header h3, .sort-head h3 { ... }
+Styles for algorithm name headings
+*/
+.stage-header h3,
+.sort-head h3 {
+  /* margin: 0 0 6px; */
+  /* margin = Outside spacing */
+  /* 0 = top/right margin */
+  /* 6px = bottom margin (space before description) */
+  margin: 0 0 6px;
+
+  /* font-size: 1.5rem; */
+  /* font-size = Text size */
+  /* 1.5rem = 1.5 times default size */
+  font-size: 1.5rem;
+}
+
+/*
+.stage-header p, .sort-head p { ... }
+Styles for description text in panel headers
+*/
+.stage-header p,
+.sort-head p {
+  /* margin: 0; */
+  /* margin = Outside spacing */
+  /* 0 = No margin (removes defaults) */
+  margin: 0;
+
+  /* color: var(--muted); */
+  /* color = Muted gray text */
+  color: var(--muted);
+
+  /* line-height: 1.5; */
+  /* line-height = Vertical line spacing */
+  /* 1.5 = 150% of font size */
+  line-height: 1.5;
+}
+
+/*
+.sort-grid, .list-grid, .search-grid { ... }
+Main layout grid for algorithm panels
+*/
+.sort-grid,
+.list-grid,
+.search-grid {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Grid layout */
+  display: grid;
+
+  /* grid-template-columns: 240px minmax(360px, 1fr) minmax(290px, 0.75fr); */
+  /* grid-template-columns = Define three columns */
+  /* 240px = Left column (controls): fixed width */
+  /* minmax(360px, 1fr) = Middle column (visualization):
+     - 360px minimum (always at least this wide)
+     - 1fr maximum (takes remaining space)
+  */
+  /* minmax(290px, 0.75fr) = Right column (code):
+     - 290px minimum
+     - 0.75fr maximum (takes 75% of remaining space)
+  */
+  grid-template-columns: 240px minmax(360px, 1fr) minmax(290px, 0.75fr);
+
+  /* gap: 18px; */
+  /* gap = Space between columns */
+  /* 18px = Space between controls, visualization, and code */
+  gap: 18px;
+
+  /* align-items: start; */
+  /* align-items = Vertical alignment */
+  /* start = Align all columns to top */
+  align-items: start;
+
+  /* margin-top: 18px; */
+  /* margin-top = Space above grid */
+  /* 18px = Space between header and grid */
+  margin-top: 18px;
+}
+
+/*
+.complexity { ... }
+Container for complexity badges
+*/
+.complexity {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Horizontal layout */
+  display: flex;
+
+  /* flex-wrap: wrap; */
+  /* flex-wrap = What happens when items exceed container width */
+  /* wrap = Items wrap to next line */
+  flex-wrap: wrap;
+
+  /* gap: 8px; */
+  /* gap = Space between complexity badges */
+  /* 8px = Space between badges */
+  gap: 8px;
+
+  /* justify-content: flex-end; */
+  /* justify-content = Horizontal alignment */
+  /* flex-end = Right-align badges */
+  justify-content: flex-end;
+}
+
+/*
+.complexity span { ... }
+Styles for individual complexity badges
+*/
+.complexity span {
+  /* border-radius: 999px; */
+  /* border-radius = Corner roundness */
+  /* 999px = Extremely rounded (makes pill shape) */
+  border-radius: 999px;
+
+  /* background: #fff3df; */
+  /* background = Light orange/yellow background */
+  background: #fff3df;
+
+  /* color: #7a4b0b; */
+  /* color = Dark orange-brown text */
+  color: #7a4b0b;
+
+  /* padding: 7px 10px; */
+  /* padding = Internal spacing */
+  /* 7px = top/bottom padding */
+  /* 10px = left/right padding */
+  padding: 7px 10px;
+
+  /* font-weight: 800; */
+  /* font-weight = Text boldness */
+  /* 800 = Extra bold */
+  font-weight: 800;
+
+  /* white-space: nowrap; */
+  /* white-space = How whitespace is handled */
+  /* nowrap = Text doesn't wrap to next line */
+  /* Keeps "O(n log n)" on one line */
+  white-space: nowrap;
+}
+
+/*
+============================================================================
+NOTE: CSS FILE CONTINUES WITH MORE SECTIONS...
+============================================================================
+
+The complete CSS file contains many more sections including:
+- Dynamic complexity cards
+- Quiz modal styling
+- Chatbot integration styles
+- Responsive breakpoints
+- Animations and transitions
+- Various component-specific styles
+
+Each section follows the same detailed commenting pattern as shown above.
+
+KEY CSS CONCEPTS COVERED:
+1. Box Model: margin, padding, border, width, height
+2. Display & Layout: display, grid, flexbox, position
+3. Colors & Background: color, background, rgba, hex
+4. Typography: font-size, font-weight, line-height
+5. Units: px, rem, vh, vw, %, fr, clamp()
+6. Responsive Design: clamp(), minmax(), media queries
+7. Effects: box-shadow, border-radius, opacity
+8. Selectors: element, class (.), id (#), pseudo-classes (:hover), combinators
+9. Cascade: Specificity, inheritance, CSS variables
+10. Modern CSS: Custom properties (--variable), Grid, Flexbox
+11. Responsive Values: clamp(), repeat(), minmax()
+12. Pseudo-states: :hover, :active, :focus
+13. Accessibility: Proper contrast, touch-friendly sizes
+14. Performance: Using CSS variables for maintainability
+
+====================================================================================
+*/

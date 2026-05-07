@@ -1,0 +1,1734 @@
+/*
+====================================================================================
+CSS DOCUMENTATION - CHATBOT WIDGET STYLES
+====================================================================================
+This CSS file contains all styling for the floating chatbot widget.
+Explains every selector, property, value, unit, animation, and responsive design.
+====================================================================================
+*/
+
+/*
+============================================================================
+SECTION 1: FLOATING CHAT BUTTON (Entry point)
+============================================================================
+Styles for the circular button that appears in bottom-right corner.
+This is the user's entry point to open the chatbot.
+*/
+
+/*
+.chatbot-floating-btn { ... }
+Class selector for the floating button
+*/
+.chatbot-floating-btn {
+  /* position: fixed; */
+  /* position = How element is positioned */
+  /* fixed = Stays in same place even when page scrolls */
+  /* Button remains visible while user scrolls */
+  position: fixed;
+
+  /* bottom: 24px; */
+  /* bottom = Distance from bottom of viewport */
+  /* 24px = 24 pixels from bottom edge */
+  /* Positions button near bottom of screen */
+  bottom: 24px;
+
+  /* right: 24px; */
+  /* right = Distance from right of viewport */
+  /* 24px = 24 pixels from right edge */
+  /* Positions button in bottom-right corner */
+  right: 24px;
+
+  /* width: 56px; */
+  /* width = Horizontal size */
+  /* 56px = Circle diameter (width = height for perfect circle) */
+  width: 56px;
+
+  /* height: 56px; */
+  /* height = Vertical size */
+  /* 56px = Same as width for perfect circle */
+  height: 56px;
+
+  /* border-radius: 50%; */
+  /* border-radius = Corner roundness */
+  /* 50% = Completely round (creates circle from square) */
+  /* When width = height and border-radius = 50%, creates perfect circle */
+  border-radius: 50%;
+
+  /* background: linear-gradient(135deg, #2f6fed 0%, #1e5fd6 100%); */
+  /* background = Fill color(s) */
+  /* linear-gradient = Gradient from one color to another */
+  /* 135deg = Diagonal direction (bottom-left to top-right) */
+  /* #2f6fed 0% = Start color (bright blue) at 0% */
+  /* #1e5fd6 100% = End color (darker blue) at 100% */
+  /* Creates smooth color transition diagonally across button */
+  background: linear-gradient(135deg, #2f6fed 0%, #1e5fd6 100%);
+
+  /* border: none; */
+  /* border = Outline around element */
+  /* none = No border */
+  border: none;
+
+  /* color: white; */
+  /* color = Text/icon color */
+  /* white = White color for icon inside button */
+  color: white;
+
+  /* font-size: 28px; */
+  /* font-size = Size of icon/text */
+  /* 28px = Large size for the chat bubble icon */
+  font-size: 28px;
+
+  /* cursor: pointer; */
+  /* cursor = Mouse cursor appearance */
+  /* pointer = Hand/pointing cursor (indicates clickable) */
+  cursor: pointer;
+
+  /* z-index: 9998; */
+  /* z-index = Stacking order (which element appears on top) */
+  /* 9998 = Very high z-index (appears above almost everything) */
+  /* Ensures button is always visible and clickable */
+  z-index: 9998;
+
+  /* box-shadow: 0 4px 16px rgba(47, 111, 237, 0.4); */
+  /* box-shadow = Drop shadow effect */
+  /* 0 = Horizontal offset (no left/right shift) */
+  /* 4px = Vertical offset (shadow 4px down) */
+  /* 16px = Blur radius (softer shadow) */
+  /* rgba(47, 111, 237, 0.4) = Shadow color and opacity */
+  /*   - RGB(47, 111, 237) = Blue color */
+  /*   - 0.4 = 40% opacity (semi-transparent) */
+  /* Creates depth effect with blue shadow */
+  box-shadow: 0 4px 16px rgba(47, 111, 237, 0.4);
+
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Use flexbox layout */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment in flexbox */
+  /* center = Vertically center content */
+  /* Icon is centered vertically */
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content = Horizontal alignment in flexbox */
+  /* center = Horizontally center content */
+  /* Icon is centered horizontally */
+  justify-content: center;
+
+  /* transition: all 0.3s ease; */
+  /* transition = Smooth animation of property changes */
+  /* all = Animate all properties that change */
+  /* 0.3s = Duration of animation (300 milliseconds) */
+  /* ease = Animation timing (starts slow, speeds up, slows down) */
+  /* Makes hover effects smooth */
+  transition: all 0.3s ease;
+
+  /* animation: pulse-glow 2s infinite; */
+  /* animation = Apply animation */
+  /* pulse-glow = Name of animation (defined later with @keyframes) */
+  /* 2s = Animation duration (2 seconds) */
+  /* infinite = Animation repeats forever */
+  /* Creates pulsing glow effect on the button */
+  animation: pulse-glow 2s infinite;
+}
+
+/*
+.chatbot-floating-btn:hover { ... }
+Styles applied when mouse hovers over floating button
+:hover = CSS pseudo-class for hover state
+*/
+.chatbot-floating-btn:hover {
+  /* transform: scale(1.1); */
+  /* transform = Apply 2D/3D transformation */
+  /* scale(1.1) = Enlarge to 110% of original size */
+  /* Button grows when hovered */
+  transform: scale(1.1);
+
+  /* box-shadow: 0 6px 24px rgba(47, 111, 237, 0.6); */
+  /* box-shadow = Drop shadow (modified on hover) */
+  /* 0 = Horizontal offset */
+  /* 6px = Vertical offset (slightly more than default) */
+  /* 24px = Blur radius (softer shadow) */
+  /* rgba(47, 111, 237, 0.6) = Shadow color at 60% opacity */
+  /* Shadow is stronger/more visible on hover */
+  box-shadow: 0 6px 24px rgba(47, 111, 237, 0.6);
+}
+
+/*
+.chatbot-floating-btn:active { ... }
+Styles applied when button is actively being clicked
+:active = CSS pseudo-class for pressed state
+*/
+.chatbot-floating-btn:active {
+  /* transform: scale(0.95); */
+  /* transform = Shrink to 95% of original size */
+  /* scale(0.95) = Makes button appear pressed/depressed */
+  /* Visual feedback that user clicked button */
+  transform: scale(0.95);
+}
+
+/*
+.chatbot-icon { ... }
+Styles for the chat bubble icon inside the button
+*/
+.chatbot-icon {
+  /* display: inline-block; */
+  /* display = Layout mode */
+  /* inline-block = Inline element that can have width/height */
+  /* Icon renders as inline element */
+  display: inline-block;
+
+  /* animation: bob 3s ease-in-out infinite; */
+  /* animation = Apply animation */
+  /* bob = Animation name (up and down bobbing motion) */
+  /* 3s = Duration (3 seconds) */
+  /* ease-in-out = Smooth start and end, faster middle */
+  /* infinite = Repeats forever */
+  /* Icon gently bobs up and down continuously */
+  animation: bob 3s ease-in-out infinite;
+}
+
+/*
+============================================================================
+SECTION 2: KEYFRAME ANIMATIONS
+============================================================================
+Define the visual animations used for the chatbot button and widget.
+@keyframes = Defines animation frames (what changes over time).
+*/
+
+/*
+@keyframes pulse-glow { ... }
+Animation for pulsing glow effect on button
+Animates the box-shadow to create pulsing effect
+*/
+@keyframes pulse-glow {
+  /* 0%, 100% { ... } */
+  /* 0% = Start of animation (0 milliseconds) */
+  /* 100% = End of animation (2000 milliseconds, defined by duration) */
+  /* Both have same styles = Animation loops smoothly */
+  0%, 100% {
+    /* box-shadow: 0 4px 16px rgba(47, 111, 237, 0.4); */
+    /* Default shadow (not pulsed) */
+    box-shadow: 0 4px 16px rgba(47, 111, 237, 0.4);
+  }
+
+  /* 50% { ... } */
+  /* 50% = Midpoint of animation (1000 milliseconds) */
+  /* Animation reaches peak at midpoint */
+  50% {
+    /* box-shadow: 0 6px 24px rgba(47, 111, 237, 0.6); */
+    /* Stronger shadow (pulsed up) */
+    /* Shadow grows, making button appear to glow more */
+    box-shadow: 0 6px 24px rgba(47, 111, 237, 0.6);
+  }
+}
+
+/*
+@keyframes bob { ... }
+Animation for bobbing up/down motion of icon
+*/
+@keyframes bob {
+  /* 0%, 100% { ... } */
+  0%, 100% {
+    /* transform: translateY(0); */
+    /* translateY = Move element vertically */
+    /* 0 = No vertical movement (default position) */
+    transform: translateY(0);
+  }
+
+  /* 50% { ... } */
+  50% {
+    /* transform: translateY(-4px); */
+    /* -4px = Move up 4 pixels (negative = up) */
+    /* Icon moves up at midpoint of animation */
+    transform: translateY(-4px);
+  }
+}
+
+/*
+============================================================================
+SECTION 3: CHATBOT WIDGET POPUP
+============================================================================
+Styles for the chat window that appears when user clicks floating button.
+*/
+
+/*
+.chatbot-widget { ... }
+Main container for the chatbot widget/window
+*/
+.chatbot-widget {
+  /* position: fixed; */
+  /* position = Element positioning */
+  /* fixed = Stays in place when page scrolls */
+  position: fixed;
+
+  /* right: 24px; */
+  /* right = Distance from right edge of screen */
+  /* 24px = 24 pixels from right */
+  right: 24px;
+
+  /* bottom: 92px; */
+  /* bottom = Distance from bottom of screen */
+  /* 92px = 92 pixels up from bottom */
+  /* Positioned above floating button (56px + 24px + 12px) */
+  bottom: 92px;
+
+  /* width: 360px; */
+  /* width = Horizontal size */
+  /* 360px = Standard chatbot window width */
+  width: 360px;
+
+  /* height: 480px; */
+  /* height = Vertical size */
+  /* 480px = Tall window for showing chat history */
+  height: 480px;
+
+  /* border-radius: 16px; */
+  /* border-radius = Corner roundness */
+  /* 16px = Rounded corners (more round than most elements) */
+  border-radius: 16px;
+
+  /* background: white; */
+  /* background = Background color (white) */
+  background: white;
+
+  /* border: 1px solid #e0e8f0; */
+  /* border = Outline */
+  /* 1px = 1 pixel wide */
+  /* #e0e8f0 = Light gray-blue color */
+  border: 1px solid #e0e8f0;
+
+  /* box-shadow: 0 8px 32px rgba(26, 35, 46, 0.16); */
+  /* box-shadow = Drop shadow */
+  /* 0 = Horizontal offset */
+  /* 8px = Vertical offset (8px down) */
+  /* 32px = Blur radius (very soft shadow) */
+  /* rgba(26, 35, 46, 0.16) = Dark color at 16% opacity */
+  /* Creates elevated appearance for widget */
+  box-shadow: 0 8px 32px rgba(26, 35, 46, 0.16);
+
+  /* z-index: 9998; */
+  /* z-index = Stacking order */
+  /* 9998 = Appears above almost everything */
+  z-index: 9998;
+
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Use flexbox */
+  display: flex;
+
+  /* flex-direction: column; */
+  /* flex-direction = Direction of flex items */
+  /* column = Stack items vertically */
+  /* Widget is tall (column layout) */
+  flex-direction: column;
+
+  /* overflow: hidden; */
+  /* overflow = What happens when content exceeds size */
+  /* hidden = Overflow is cut off (doesn't show scrollbars) */
+  /* Combined with overflow-y on chat-log for scrolling */
+  overflow: hidden;
+
+  /* transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); */
+  /* transition = Smooth animation of property changes */
+  /* all = Animate all properties */
+  /* 0.35s = Duration (350 milliseconds) */
+  /* cubic-bezier(...) = Custom animation timing */
+  /*   - Creates bouncy/springy effect */
+  /*   - (0.34, 1.56, 0.64, 1) = Bounce curve values */
+  /* Smooth animated open/close */
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* opacity: 1; */
+  /* opacity = Transparency level */
+  /* 1 = Fully opaque (completely visible) */
+  /* 0 = Fully transparent (invisible) */
+  opacity: 1;
+
+  /* transform: translateY(0) scale(1); */
+  /* transform = 2D/3D transformation */
+  /* translateY(0) = No vertical movement */
+  /* scale(1) = Normal size (100% of original) */
+  /* Default visible state */
+  transform: translateY(0) scale(1);
+}
+
+/*
+.chatbot-widget.chatbot-closed { ... }
+Styles when widget is closed/hidden
+Class applied by JavaScript when hiding widget
+*/
+.chatbot-widget.chatbot-closed {
+  /* opacity: 0; */
+  /* opacity = Fully transparent (invisible) */
+  opacity: 0;
+
+  /* transform: translateY(20px) scale(0.95); */
+  /* transform = Animation effects */
+  /* translateY(20px) = Move down 20px */
+  /* scale(0.95) = Shrink to 95% */
+  /* Widget appears to shrink and move down when closing */
+  transform: translateY(20px) scale(0.95);
+
+  /* pointer-events: none; */
+  /* pointer-events = Mouse interaction */
+  /* none = Element can't be clicked or interacted with */
+  /* Prevents clicking closed widget */
+  pointer-events: none;
+
+  /* visibility: hidden; */
+  /* visibility = Element visibility */
+  /* hidden = Element is hidden (takes up no space) */
+  /* Hides widget from view completely */
+  visibility: hidden;
+}
+
+/*
+.chatbot-widget.chatbot-open { ... }
+Styles when widget is open/visible
+Class applied by JavaScript when showing widget
+*/
+.chatbot-widget.chatbot-open {
+  /* opacity: 1; */
+  /* opacity = Fully visible */
+  opacity: 1;
+
+  /* transform: translateY(0) scale(1); */
+  /* transform = Normal position and size */
+  /* No movement or scaling */
+  transform: translateY(0) scale(1);
+
+  /* pointer-events: auto; */
+  /* pointer-events = Can be interacted with */
+  pointer-events: auto;
+
+  /* visibility: visible; */
+  /* visibility = Element is visible */
+  visibility: visible;
+
+  /* animation: slideUpIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); */
+  /* animation = Apply animation on open */
+  /* slideUpIn = Animation name (appears to slide up) */
+  /* 0.35s = Duration */
+  /* cubic-bezier(...) = Bouncy timing */
+  animation: slideUpIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/*
+@keyframes slideUpIn { ... }
+Animation for widget appearing (slide up)
+*/
+@keyframes slideUpIn {
+  /* from { ... } */
+  /* from = Start of animation (0%) */
+  from {
+    /* opacity: 0; */
+    /* Start invisible */
+    opacity: 0;
+
+    /* transform: translateY(20px) scale(0.95); */
+    /* Start lower and smaller */
+    transform: translateY(20px) scale(0.95);
+  }
+
+  /* to { ... } */
+  /* to = End of animation (100%) */
+  to {
+    /* opacity: 1; */
+    /* End fully visible */
+    opacity: 1;
+
+    /* transform: translateY(0) scale(1); */
+    /* End at normal position and size */
+    transform: translateY(0) scale(1);
+  }
+}
+
+/*
+============================================================================
+SECTION 4: CHATBOT HEADER
+============================================================================
+Styles for the header section of the chat window.
+Contains title, online status, and control buttons.
+*/
+
+/*
+.chatbot-header { ... }
+Header container at top of chatbot widget
+*/
+.chatbot-header {
+  /* display: flex; */
+  /* display = Layout mode (flexbox) */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment */
+  /* center = Center items vertically */
+  align-items: center;
+
+  /* justify-content: space-between; */
+  /* justify-content = Horizontal alignment */
+  /* space-between = Spread items apart (title on left, buttons on right) */
+  justify-content: space-between;
+
+  /* padding: 14px 16px; */
+  /* padding = Internal spacing */
+  /* 14px = Top and bottom */
+  /* 16px = Left and right */
+  padding: 14px 16px;
+
+  /* background: linear-gradient(135deg, #101820 0%, #1a2332 100%); */
+  /* background = Gradient fill */
+  /* linear-gradient = Color transition */
+  /* 135deg = Diagonal direction */
+  /* #101820 -> #1a2332 = Dark to slightly lighter dark */
+  /* Creates gradient from dark blue to slightly lighter blue */
+  background: linear-gradient(135deg, #101820 0%, #1a2332 100%);
+
+  /* color: white; */
+  /* color = Text color (white) */
+  color: white;
+
+  /* border-bottom: 1px solid rgba(47, 111, 237, 0.1); */
+  /* border-bottom = Bottom border only */
+  /* 1px = 1 pixel wide */
+  /* rgba(47, 111, 237, 0.1) = Blue at 10% opacity (very subtle) */
+  border-bottom: 1px solid rgba(47, 111, 237, 0.1);
+
+  /* min-height: 60px; */
+  /* min-height = Minimum height */
+  /* 60px = Touch-friendly height */
+  min-height: 60px;
+}
+
+/*
+.chatbot-title { ... }
+Container for the title text and online status
+*/
+.chatbot-title {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox layout */
+  display: flex;
+
+  /* flex-direction: column; */
+  /* flex-direction = Stack vertically */
+  flex-direction: column;
+
+  /* gap: 4px; */
+  /* gap = Space between items */
+  /* 4px = Small space between title and status */
+  gap: 4px;
+
+  /* flex: 1; */
+  /* flex = Flex growth */
+  /* 1 = Takes available space */
+  /* Title section grows to fill space */
+  flex: 1;
+}
+
+/*
+.chatbot-title strong { ... }
+The main title text "DSA Quest Bot" or similar
+*/
+.chatbot-title strong {
+  /* font-size: 0.98rem; */
+  /* font-size = Text size */
+  /* 0.98rem = Slightly smaller than body text */
+  font-size: 0.98rem;
+
+  /* font-weight: 700; */
+  /* font-weight = Text boldness */
+  /* 700 = Bold */
+  font-weight: 700;
+
+  /* letter-spacing: 0.3px; */
+  /* letter-spacing = Space between letters */
+  /* 0.3px = Slight letter spacing for readability */
+  letter-spacing: 0.3px;
+}
+
+/*
+.chatbot-status-indicator { ... }
+Container for online status indicator
+*/
+.chatbot-status-indicator {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment */
+  /* center = Center items vertically */
+  align-items: center;
+
+  /* gap: 6px; */
+  /* gap = Space between dot and text */
+  /* 6px = Small space */
+  gap: 6px;
+
+  /* font-size: 0.75rem; */
+  /* font-size = Text size */
+  /* 0.75rem = Small text for status */
+  font-size: 0.75rem;
+
+  /* color: #a0b0bf; */
+  /* color = Light gray text */
+  color: #a0b0bf;
+
+  /* font-weight: 600; */
+  /* font-weight = Text boldness */
+  /* 600 = Semi-bold */
+  font-weight: 600;
+}
+
+/*
+.online-dot { ... }
+Small colored circle indicating online status
+*/
+.online-dot {
+  /* width: 6px; */
+  /* width = Size of dot */
+  /* 6px = Small circle */
+  width: 6px;
+
+  /* height: 6px; */
+  /* height = Same as width for perfect circle */
+  height: 6px;
+
+  /* border-radius: 50%; */
+  /* border-radius = Makes perfect circle */
+  /* 50% = Creates circle from square */
+  border-radius: 50%;
+
+  /* background: #4ade80; */
+  /* background = Green color (#4ade80) */
+  /* Indicates "online" status */
+  background: #4ade80;
+
+  /* box-shadow: 0 0 8px rgba(74, 222, 128, 0.6); */
+  /* box-shadow = Glow effect */
+  /* 0 0 = No offset (shadow appears around dot) */
+  /* 8px = Blur radius (soft glow) */
+  /* rgba(74, 222, 128, 0.6) = Green glow at 60% opacity */
+  /* Creates green glowing effect around dot */
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+
+  /* animation: pulse-dot 2s infinite; */
+  /* animation = Apply animation */
+  /* pulse-dot = Animation name (pulsing effect) */
+  /* 2s infinite = 2-second animation repeating forever */
+  /* Dot appears to pulse (glow stronger/weaker) */
+  animation: pulse-dot 2s infinite;
+}
+
+/*
+@keyframes pulse-dot { ... }
+Animation for pulsing online indicator dot
+*/
+@keyframes pulse-dot {
+  /* 0%, 100% { ... } */
+  0%, 100% {
+    /* opacity: 1; */
+    /* Fully visible */
+    opacity: 1;
+  }
+
+  /* 50% { ... } */
+  50% {
+    /* opacity: 0.6; */
+    /* 60% visible (slightly dimmed) */
+    opacity: 0.6;
+  }
+}
+
+/*
+.chatbot-controls { ... }
+Container for header control buttons (close, clear, etc.)
+*/
+.chatbot-controls {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox */
+  display: flex;
+
+  /* gap: 8px; */
+  /* gap = Space between buttons */
+  /* 8px = Small space */
+  gap: 8px;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment */
+  /* center = Center buttons vertically */
+  align-items: center;
+}
+
+/*
+.chatbot-icon-btn { ... }
+Styles for small icon buttons (close, settings, etc.)
+*/
+.chatbot-icon-btn {
+  /* width: 32px; */
+  /* width = Button size */
+  /* 32px = Small square button */
+  width: 32px;
+
+  /* height: 32px; */
+  /* height = Same as width for square */
+  height: 32px;
+
+  /* border-radius: 8px; */
+  /* border-radius = Rounded corners */
+  /* 8px = Moderately rounded */
+  border-radius: 8px;
+
+  /* border: none; */
+  /* border = No border */
+  border: none;
+
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* background = Semi-transparent white */
+  /* rgba(255, 255, 255, 0.1) = White at 10% opacity */
+  /* Creates subtle dark button on dark background */
+  background: rgba(255, 255, 255, 0.1);
+
+  /* color: white; */
+  /* color = Icon color (white) */
+  color: white;
+
+  /* font-size: 16px; */
+  /* font-size = Icon size */
+  /* 16px = Medium icon */
+  font-size: 16px;
+
+  /* cursor: pointer; */
+  /* cursor = Mouse cursor (pointer) */
+  cursor: pointer;
+
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox for centering */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Center vertically */
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content = Center horizontally */
+  justify-content: center;
+
+  /* transition: all 0.2s ease; */
+  /* transition = Smooth animation */
+  /* all = Animate all properties */
+  /* 0.2s = Fast animation */
+  /* ease = Smooth timing */
+  transition: all 0.2s ease;
+}
+
+/*
+.chatbot-icon-btn:hover { ... }
+Styles when button is hovered
+*/
+.chatbot-icon-btn:hover {
+  /* background: rgba(255, 255, 255, 0.2); */
+  /* background = More opaque white */
+  /* 0.2 = 20% opacity (more visible on hover) */
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/*
+.chatbot-icon-btn:active { ... }
+Styles when button is pressed
+:active = CSS pseudo-class for pressed state
+*/
+.chatbot-icon-btn:active {
+  /* transform: scale(0.9); */
+  /* transform = Shrink slightly */
+  /* scale(0.9) = 90% of size */
+  /* Visual feedback that button was clicked */
+  transform: scale(0.9);
+}
+
+/*
+============================================================================
+SECTION 5: CHATBOT BODY / MESSAGE AREA
+============================================================================
+Styles for the scrollable message area of the chatbot.
+*/
+
+/*
+.chatbot-body { ... }
+Main container for chat messages
+*/
+.chatbot-body {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox */
+  display: flex;
+
+  /* flex-direction: column; */
+  /* flex-direction = Stack vertically */
+  flex-direction: column;
+
+  /* flex: 1; */
+  /* flex = Growth factor */
+  /* 1 = Takes all available space */
+  /* Expands to fill widget */
+  flex: 1;
+
+  /* overflow: hidden; */
+  /* overflow = Excess content handling */
+  /* hidden = Cut off overflow */
+  overflow: hidden;
+
+  /* position: relative; */
+  /* position = Positioning mode */
+  /* relative = Positioned relative to normal flow */
+  position: relative;
+}
+
+/*
+#chat-log { ... }
+ID selector for the message log container
+This is where chat messages are displayed
+*/
+#chat-log {
+  /* flex: 1; */
+  /* flex = Growth factor */
+  /* 1 = Takes available space */
+  /* Message area fills available space */
+  flex: 1;
+
+  /* overflow-y: auto; */
+  /* overflow-y = Vertical overflow handling */
+  /* auto = Show scrollbar if content exceeds height */
+  /* Allows scrolling through message history */
+  overflow-y: auto;
+
+  /* padding: 14px; */
+  /* padding = Internal spacing */
+  /* 14px = Space around messages inside container */
+  padding: 14px;
+
+  /* background: #f8fbfd; */
+  /* background = Light blue-gray background */
+  background: #f8fbfd;
+
+  /* scroll-behavior: smooth; */
+  /* scroll-behavior = Scrolling animation */
+  /* smooth = Animate scrolling instead of instant jump */
+  /* Smooth scroll to latest message */
+  scroll-behavior: smooth;
+}
+
+/*
+Custom scrollbar styling for Webkit browsers (Chrome, Safari, Edge)
+These prefixes (-webkit-) are vendor-specific
+*/
+
+/*
+#chat-log::-webkit-scrollbar { ... }
+::-webkit-scrollbar = Targets scrollbar in Webkit browsers
+*/
+#chat-log::-webkit-scrollbar {
+  /* width: 6px; */
+  /* width = Vertical scrollbar width */
+  /* 6px = Thin scrollbar */
+  width: 6px;
+}
+
+/*
+#chat-log::-webkit-scrollbar-track { ... }
+::-webkit-scrollbar-track = Background of scrollbar
+*/
+#chat-log::-webkit-scrollbar-track {
+  /* background: transparent; */
+  /* background = Transparent (no visible background) */
+  background: transparent;
+}
+
+/*
+#chat-log::-webkit-scrollbar-thumb { ... }
+::-webkit-scrollbar-thumb = The draggable part of scrollbar
+*/
+#chat-log::-webkit-scrollbar-thumb {
+  /* background: #cbd5e1; */
+  /* background = Gray color for scrollbar thumb */
+  background: #cbd5e1;
+
+  /* border-radius: 3px; */
+  /* border-radius = Rounded corners on scrollbar */
+  /* 3px = Slightly rounded */
+  border-radius: 3px;
+}
+
+/*
+#chat-log::-webkit-scrollbar-thumb:hover { ... }
+:hover on scrollbar thumb = When hovering over scrollbar
+*/
+#chat-log::-webkit-scrollbar-thumb:hover {
+  /* background: #94a3b8; */
+  /* background = Darker gray on hover */
+  background: #94a3b8;
+}
+
+/*
+============================================================================
+SECTION 6: CHAT MESSAGES
+============================================================================
+Styles for individual chat messages (user and assistant).
+*/
+
+/*
+.chat-msg { ... }
+Container for a single chat message
+*/
+.chat-msg {
+  /* display: grid; */
+  /* display = Layout mode */
+  /* grid = Grid layout */
+  display: grid;
+
+  /* grid-template-columns: 32px 1fr; */
+  /* grid-template-columns = Define columns */
+  /* 32px = First column (avatar) */
+  /* 1fr = Second column (message) takes remaining space */
+  grid-template-columns: 32px 1fr;
+
+  /* gap: 10px; */
+  /* gap = Space between avatar and message */
+  /* 10px = 10 pixels */
+  gap: 10px;
+
+  /* align-items: flex-start; */
+  /* align-items = Vertical alignment */
+  /* flex-start = Align to top */
+  /* Avatar aligns with top of message */
+  align-items: flex-start;
+
+  /* margin-bottom: 12px; */
+  /* margin-bottom = Space below message */
+  /* 12px = Space between messages */
+  margin-bottom: 12px;
+
+  /* animation: fadeInUp 0.3s ease; */
+  /* animation = Apply animation on message appear */
+  /* fadeInUp = Message fades in while moving up */
+  /* 0.3s = Animation duration */
+  /* Messages animate when added */
+  animation: fadeInUp 0.3s ease;
+}
+
+/*
+.chat-msg.user { ... }
+Styles for user's own messages (right-aligned)
+.user = Class added to user messages
+*/
+.chat-msg.user {
+  /* grid-template-columns: 1fr 32px; */
+  /* grid-template-columns = Reverse column order */
+  /* 1fr = Message on left */
+  /* 32px = Avatar on right */
+  /* User messages are right-aligned */
+  grid-template-columns: 1fr 32px;
+}
+
+/*
+@keyframes fadeInUp { ... }
+Animation for messages appearing
+*/
+@keyframes fadeInUp {
+  /* from { ... } */
+  from {
+    /* opacity: 0; */
+    /* Start invisible */
+    opacity: 0;
+
+    /* transform: translateY(8px); */
+    /* translate = Move downward */
+    /* 8px down initially */
+    transform: translateY(8px);
+  }
+
+  /* to { ... } */
+  to {
+    /* opacity: 1; */
+    /* End fully visible */
+    opacity: 1;
+
+    /* transform: translateY(0); */
+    /* translateY(0) = No vertical movement */
+    /* End in normal position */
+    transform: translateY(0);
+  }
+}
+
+/*
+.chat-avatar { ... }
+Styles for avatar icon next to each message
+*/
+.chat-avatar {
+  /* width: 32px; */
+  /* width = Avatar size */
+  /* 32px = Square avatar */
+  width: 32px;
+
+  /* height: 32px; */
+  /* height = Same as width for square */
+  height: 32px;
+
+  /* border-radius: 8px; */
+  /* border-radius = Rounded corners */
+  /* 8px = Moderately rounded (square with rounded corners) */
+  border-radius: 8px;
+
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Center content vertically */
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content = Center content horizontally */
+  justify-content: center;
+
+  /* font-weight: 700; */
+  /* font-weight = Text boldness */
+  /* 700 = Bold */
+  font-weight: 700;
+
+  /* font-size: 0.7rem; */
+  /* font-size = Text size for avatar label */
+  /* 0.7rem = Small */
+  font-size: 0.7rem;
+
+  /* background: #e0ebf7; */
+  /* background = Light blue background */
+  background: #e0ebf7;
+
+  /* color: #2f6fed; */
+  /* color = Blue text (bot messages) */
+  color: #2f6fed;
+
+  /* flex-shrink: 0; */
+  /* flex-shrink = Allow shrinking in flexbox */
+  /* 0 = Don't shrink (keep fixed size) */
+  /* Avatar stays 32px even if message area is crowded */
+  flex-shrink: 0;
+
+  /* border: 1px solid rgba(47, 111, 237, 0.12); */
+  /* border = Subtle border */
+  /* 1px solid rgba(...) = Semi-transparent blue */
+  /* Subtle outline around avatar */
+  border: 1px solid rgba(47, 111, 237, 0.12);
+}
+
+/*
+.chat-msg.user .chat-avatar { ... }
+Override avatar styles for user messages
+*/
+.chat-msg.user .chat-avatar {
+  /* grid-column: 2; */
+  /* grid-column = Position in grid */
+  /* 2 = Second column (right side) */
+  grid-column: 2;
+
+  /* background: #fef3f0; */
+  /* background = Light orange/peach color */
+  background: #fef3f0;
+
+  /* color: #d95d39; */
+  /* color = Coral color (user messages) */
+  color: #d95d39;
+
+  /* border-color: rgba(217, 93, 57, 0.12); */
+  /* border-color = Coral border (matching avatar color) */
+  border-color: rgba(217, 93, 57, 0.12);
+}
+
+/*
+.chat-bubble { ... }
+Styles for the message text bubble
+*/
+.chat-bubble {
+  /* padding: 10px 12px; */
+  /* padding = Internal spacing around text */
+  /* 10px = Top/bottom */
+  /* 12px = Left/right */
+  padding: 10px 12px;
+
+  /* border-radius: 10px; */
+  /* border-radius = Rounded corners */
+  /* 10px = Rounded bubble shape */
+  border-radius: 10px;
+
+  /* border: 1px solid #e0e8f0; */
+  /* border = Subtle border */
+  border: 1px solid #e0e8f0;
+
+  /* background: white; */
+  /* background = White background for bot messages */
+  background: white;
+
+  /* color: #1a2332; */
+  /* color = Dark text */
+  color: #1a2332;
+
+  /* font-size: 0.88rem; */
+  /* font-size = Text size */
+  /* 0.88rem = Slightly small */
+  font-size: 0.88rem;
+
+  /* line-height: 1.4; */
+  /* line-height = Vertical spacing between lines */
+  /* 1.4 = 140% of font size (readable spacing) */
+  line-height: 1.4;
+
+  /* word-wrap: break-word; */
+  /* word-wrap = How long words are handled */
+  /* break-word = Break long words to next line */
+  word-wrap: break-word;
+
+  /* overflow-wrap: break-word; */
+  /* overflow-wrap = Modern version of word-wrap */
+  /* Same behavior as word-wrap */
+  overflow-wrap: break-word;
+}
+
+/*
+.chat-bubble code { ... }
+Styles for inline code within messages
+*/
+.chat-bubble code {
+  /* background: #f0f4f8; */
+  /* background = Light gray background */
+  background: #f0f4f8;
+
+  /* padding: 2px 6px; */
+  /* padding = Space around code */
+  /* 2px = Top/bottom */
+  /* 6px = Left/right */
+  padding: 2px 6px;
+
+  /* border-radius: 4px; */
+  /* border-radius = Slightly rounded corners */
+  border-radius: 4px;
+
+  /* font-family: 'Monaco', 'Courier New', monospace; */
+  /* font-family = Monospace font for code */
+  /* Monaco on Mac, Courier New fallback, monospace generic */
+  font-family: 'Monaco', 'Courier New', monospace;
+
+  /* font-size: 0.8em; */
+  /* font-size = Smaller than message text */
+  /* 0.8em = 80% of parent font size */
+  font-size: 0.8em;
+
+  /* color: #d95d39; */
+  /* color = Coral color for emphasis */
+  color: #d95d39;
+}
+
+/*
+.chat-bubble pre { ... }
+Styles for code blocks (pre-formatted text)
+*/
+.chat-bubble pre {
+  /* background: #1a2332; */
+  /* background = Dark background for code block */
+  background: #1a2332;
+
+  /* color: #a0b0bf; */
+  /* color = Light gray text for readability */
+  color: #a0b0bf;
+
+  /* padding: 10px; */
+  /* padding = Space inside code block */
+  padding: 10px;
+
+  /* border-radius: 6px; */
+  /* border-radius = Slightly rounded */
+  border-radius: 6px;
+
+  /* overflow-x: auto; */
+  /* overflow-x = Horizontal overflow */
+  /* auto = Show horizontal scrollbar if needed */
+  /* Code can scroll horizontally if too long */
+  overflow-x: auto;
+
+  /* font-size: 0.75rem; */
+  /* font-size = Small code text */
+  font-size: 0.75rem;
+
+  /* line-height: 1.4; */
+  /* line-height = Spacing between code lines */
+  line-height: 1.4;
+
+  /* margin: 6px 0; */
+  /* margin = Space above/below code block */
+  /* 6px = Small spacing */
+  margin: 6px 0;
+}
+
+/*
+.chat-bubble pre code { ... }
+Override code styling inside pre blocks
+*/
+.chat-bubble pre code {
+  /* background: transparent; */
+  /* background = Remove background (pre already has it) */
+  background: transparent;
+
+  /* color: #a0b0bf; */
+  /* color = Light gray text */
+  color: #a0b0bf;
+
+  /* padding: 0; */
+  /* padding = Remove padding (pre already has it) */
+  padding: 0;
+}
+
+/*
+.chat-msg.user .chat-bubble { ... }
+Override bubble styles for user messages
+*/
+.chat-msg.user .chat-bubble {
+  /* background: #fff7f2; */
+  /* background = Light peach/orange background */
+  background: #fff7f2;
+
+  /* border-color: rgba(217, 93, 57, 0.2); */
+  /* border-color = Coral border (matching theme) */
+  border-color: rgba(217, 93, 57, 0.2);
+
+  /* color: #2d1f1a; */
+  /* color = Dark text for contrast */
+  color: #2d1f1a;
+}
+
+/*
+============================================================================
+SECTION 7: TYPING INDICATOR
+============================================================================
+Styles for the "typing..." indicator when bot is responding.
+*/
+
+/*
+.typing-dots { ... }
+Container for three animated dots showing "typing"
+*/
+.typing-dots {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox for horizontal dots */
+  display: flex;
+
+  /* gap: 4px; */
+  /* gap = Space between dots */
+  /* 4px = Small space */
+  gap: 4px;
+
+  /* align-items: center; */
+  /* align-items = Center dots vertically */
+  align-items: center;
+
+  /* padding: 8px 0; */
+  /* padding = Space around dots */
+  padding: 8px 0;
+}
+
+/*
+.typing-dots span { ... }
+Individual dot element (there are 3 of these)
+*/
+.typing-dots span {
+  /* width: 6px; */
+  /* width = Dot size */
+  /* 6px = Small circle */
+  width: 6px;
+
+  /* height: 6px; */
+  /* height = Same as width for perfect circle */
+  height: 6px;
+
+  /* border-radius: 50%; */
+  /* border-radius = Perfect circle */
+  border-radius: 50%;
+
+  /* background: #2f6fed; */
+  /* background = Blue color */
+  background: #2f6fed;
+
+  /* animation: typing 1.4s infinite ease-in-out; */
+  /* animation = Animate dots */
+  /* typing = Animation name (up/down bouncing) */
+  /* 1.4s = Duration for all three dots */
+  /* infinite = Repeats forever */
+  /* ease-in-out = Smooth start and end */
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+/*
+.typing-dots span:nth-child(1) { ... }
+:nth-child(1) = First child (first dot)
+Animation delay staggers the dots
+*/
+.typing-dots span:nth-child(1) {
+  /* animation-delay: -0.32s; */
+  /* animation-delay = Delay before animation starts */
+  /* -0.32s = Start earlier (negative delays work) */
+  /* First dot starts early, so it bobs earlier */
+  animation-delay: -0.32s;
+}
+
+/*
+.typing-dots span:nth-child(2) { ... }
+:nth-child(2) = Second child (middle dot)
+*/
+.typing-dots span:nth-child(2) {
+  /* animation-delay: -0.16s; */
+  /* animation-delay = Less delay than first dot */
+  /* Middle dot bobs in between first and third */
+  animation-delay: -0.16s;
+}
+
+/*
+.typing-dots span:nth-child(3) { ... }
+:nth-child(3) = Third child (last dot)
+*/
+.typing-dots span:nth-child(3) {
+  /* animation-delay: 0s; */
+  /* animation-delay = No delay */
+  /* Third dot starts at normal time */
+  animation-delay: 0s;
+}
+
+/*
+@keyframes typing { ... }
+Animation for bouncing typing dots
+*/
+@keyframes typing {
+  /* 0%, 80%, 100% { ... } */
+  /* 0% = Start */
+  /* 80% = Most of animation */
+  /* 100% = End */
+  /* Dots are small at start, middle, and end */
+  0%, 80%, 100% {
+    /* transform: scale(0.8); */
+    /* transform = Shrink to 80% */
+    transform: scale(0.8);
+
+    /* opacity: 0.5; */
+    /* opacity = Semi-transparent (50%) */
+    opacity: 0.5;
+  }
+
+  /* 40% { ... } */
+  /* 40% = Midpoint of animation */
+  /* Dot is large and visible at midpoint */
+  40% {
+    /* transform: scale(1); */
+    /* transform = Normal size (100%) */
+    transform: scale(1);
+
+    /* opacity: 1; */
+    /* opacity = Fully visible */
+    opacity: 1;
+  }
+}
+
+/*
+============================================================================
+SECTION 8: CHATBOT FOOTER (Input Area)
+============================================================================
+Styles for the input field and send button at bottom.
+*/
+
+/*
+.chatbot-footer { ... }
+Container for input field and send button
+*/
+.chatbot-footer {
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox for horizontal layout */
+  display: flex;
+
+  /* gap: 8px; */
+  /* gap = Space between input and button */
+  /* 8px = 8 pixels */
+  gap: 8px;
+
+  /* align-items: center; */
+  /* align-items = Vertical alignment */
+  /* center = Center items vertically */
+  align-items: center;
+
+  /* padding: 12px 14px; */
+  /* padding = Space around content */
+  /* 12px = Top/bottom */
+  /* 14px = Left/right */
+  padding: 12px 14px;
+
+  /* background: #f8fbfd; */
+  /* background = Light background */
+  background: #f8fbfd;
+
+  /* border-top: 1px solid #e0e8f0; */
+  /* border-top = Top border only */
+  /* 1px = 1 pixel */
+  /* #e0e8f0 = Light gray */
+  /* Separates footer from message area */
+  border-top: 1px solid #e0e8f0;
+
+  /* flex-shrink: 0; */
+  /* flex-shrink = Prevent shrinking */
+  /* 0 = Don't shrink */
+  /* Footer stays at fixed size */
+  flex-shrink: 0;
+}
+
+/*
+#chat-input { ... }
+ID selector for the text input field
+*/
+#chat-input {
+  /* flex: 1; */
+  /* flex = Growth factor */
+  /* 1 = Takes available space */
+  flex: 1;
+
+  /* padding: 10px 12px; */
+  /* padding = Internal spacing around text */
+  padding: 10px 12px;
+
+  /* border: 1px solid #d9e0e8; */
+  /* border = Input border */
+  border: 1px solid #d9e0e8;
+
+  /* border-radius: 8px; */
+  /* border-radius = Rounded corners */
+  border-radius: 8px;
+
+  /* background: white; */
+  /* background = White background */
+  background: white;
+
+  /* color: #1a2332; */
+  /* color = Text color (dark) */
+  color: #1a2332;
+
+  /* font-family: inherit; */
+  /* font-family = Inherit from parent */
+  /* Uses body font */
+  font-family: inherit;
+
+  /* font-size: 0.88rem; */
+  /* font-size = Text size */
+  font-size: 0.88rem;
+
+  /* transition: all 0.2s ease; */
+  /* transition = Smooth animation on focus */
+  transition: all 0.2s ease;
+
+  /* outline: none; */
+  /* outline = Remove browser focus outline */
+  outline: none;
+}
+
+/*
+#chat-input:focus { ... }
+:focus = Styles when input is focused (active)
+*/
+#chat-input:focus {
+  /* border-color: #2f6fed; */
+  /* border-color = Change to blue when focused */
+  border-color: #2f6fed;
+
+  /* box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.1); */
+  /* box-shadow = Glow effect on focus */
+  /* 0 0 0 3px = 3px glow */
+  /* rgba(47, 111, 237, 0.1) = Blue at 10% opacity */
+  /* Subtle focus glow */
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.1);
+
+  /* background: white; */
+  /* background = Keep white background */
+  background: white;
+}
+
+/*
+#chat-input::placeholder { ... }
+::placeholder = Styles for placeholder text "Type message..."
+*/
+#chat-input::placeholder {
+  /* color: #9ab0bf; */
+  /* color = Light gray placeholder text */
+  color: #9ab0bf;
+}
+
+/*
+.chatbot-send-btn { ... }
+Styles for the send button
+*/
+.chatbot-send-btn {
+  /* width: 36px; */
+  /* width = Button size */
+  /* 36px = Square button */
+  width: 36px;
+
+  /* height: 36px; */
+  /* height = Same as width */
+  height: 36px;
+
+  /* border: none; */
+  /* border = No border */
+  border: none;
+
+  /* border-radius: 8px; */
+  /* border-radius = Rounded corners */
+  border-radius: 8px;
+
+  /* background: linear-gradient(135deg, #2f6fed 0%, #1e5fd6 100%); */
+  /* background = Blue gradient */
+  /* linear-gradient = Color transition */
+  /* 135deg = Diagonal direction */
+  /* From bright blue to darker blue */
+  background: linear-gradient(135deg, #2f6fed 0%, #1e5fd6 100%);
+
+  /* color: white; */
+  /* color = White icon */
+  color: white;
+
+  /* font-size: 16px; */
+  /* font-size = Icon size */
+  font-size: 16px;
+
+  /* cursor: pointer; */
+  /* cursor = Pointer cursor on hover */
+  cursor: pointer;
+
+  /* display: flex; */
+  /* display = Layout mode */
+  /* flex = Flexbox */
+  display: flex;
+
+  /* align-items: center; */
+  /* align-items = Center icon vertically */
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content = Center icon horizontally */
+  justify-content: center;
+
+  /* transition: all 0.2s ease; */
+  /* transition = Smooth animation on hover */
+  transition: all 0.2s ease;
+
+  /* flex-shrink: 0; */
+  /* flex-shrink = Don't shrink */
+  /* 0 = Keep fixed size */
+  flex-shrink: 0;
+}
+
+/*
+.chatbot-send-btn:hover { ... }
+:hover = When mouse hovers over button
+*/
+.chatbot-send-btn:hover {
+  /* transform: scale(1.05); */
+  /* transform = Enlarge to 105% */
+  transform: scale(1.05);
+
+  /* box-shadow: 0 2px 8px rgba(47, 111, 237, 0.3); */
+  /* box-shadow = Drop shadow on hover */
+  box-shadow: 0 2px 8px rgba(47, 111, 237, 0.3);
+}
+
+/*
+.chatbot-send-btn:active { ... }
+:active = When button is being pressed
+*/
+.chatbot-send-btn:active {
+  /* transform: scale(0.95); */
+  /* transform = Shrink to 95% */
+  /* Visual feedback that button was clicked */
+  transform: scale(0.95);
+}
+
+/*
+.chatbot-send-btn:disabled { ... }
+:disabled = When button is disabled (can't click)
+*/
+.chatbot-send-btn:disabled {
+  /* opacity: 0.5; */
+  /* opacity = Semi-transparent (50%) */
+  /* Appears grayed out */
+  opacity: 0.5;
+
+  /* cursor: not-allowed; */
+  /* cursor = "not-allowed" cursor */
+  cursor: not-allowed;
+}
+
+/*
+============================================================================
+SECTION 9: RESPONSIVE DESIGN (Mobile Breakpoints)
+============================================================================
+Styles that apply to smaller screens (tablets and mobile).
+@media = Media query (applies styles under certain conditions)
+*/
+
+/*
+@media (max-width: 480px) { ... }
+Media query for screens 480px or smaller (mobile phones)
+max-width = "up to and including 480px"
+*/
+@media (max-width: 480px) {
+  /*
+  Chatbot button adjustments for mobile
+  */
+  .chatbot-floating-btn {
+    /* bottom: 16px; */
+    /* Move slightly higher on mobile */
+    bottom: 16px;
+
+    /* right: 16px; */
+    /* Move slightly more inward on mobile */
+    right: 16px;
+
+    /* width: 52px; */
+    /* Slightly smaller on mobile */
+    width: 52px;
+
+    /* height: 52px; */
+    /* Same as width */
+    height: 52px;
+  }
+
+  /*
+  Chatbot widget adjustments for mobile
+  */
+  .chatbot-widget {
+    /* right: 12px; */
+    /* Inset from right edge */
+    right: 12px;
+
+    /* bottom: 76px; */
+    /* Higher from bottom (above button) */
+    bottom: 76px;
+
+    /* width: calc(100vw - 24px); */
+    /* calc = Calculate dynamic value */
+    /* 100vw = 100% of viewport width */
+    /* - 24px = Minus margins on each side */
+    /* Widget takes most of screen width with small margins */
+    width: calc(100vw - 24px);
+
+    /* max-width: 360px; */
+    /* max-width = Maximum width */
+    /* 360px = Don't grow larger than this */
+    max-width: 360px;
+
+    /* height: 480px; */
+    /* Keep same height */
+    height: 480px;
+  }
+
+  /*
+  Chat log adjustments
+  */
+  #chat-log {
+    /* height: auto; */
+    /* height = Automatic (fill available space) */
+    height: auto;
+  }
+}
+
+/*
+@media (max-width: 360px) { ... }
+Media query for very small screens (small phones)
+max-width = "up to and including 360px"
+*/
+@media (max-width: 360px) {
+  /*
+  Widget width adjustments for very small phones
+  */
+  .chatbot-widget {
+    /* width: calc(100vw - 16px); */
+    /* calc = Dynamic calculation */
+    /* 100vw = Full viewport width */
+    /* - 16px = Subtract small margins */
+    /* Widget takes almost entire width */
+    width: calc(100vw - 16px);
+
+    /* right: 8px; */
+    /* right = 8px from edge */
+    right: 8px;
+
+    /* bottom: 72px; */
+    /* Positioned above floating button */
+    bottom: 72px;
+  }
+
+  /*
+  Title text adjustment for small screens
+  */
+  .chatbot-title strong {
+    /* font-size: 0.9rem; */
+    /* font-size = Slightly smaller */
+    font-size: 0.9rem;
+  }
+
+  /*
+  Message bubble text adjustment
+  */
+  .chat-bubble {
+    /* font-size: 0.82rem; */
+    /* font-size = Slightly smaller for readability */
+    font-size: 0.82rem;
+  }
+}
+
+/*
+====================================================================================
+SUMMARY OF CHATBOT CSS
+====================================================================================
+
+KEY FEATURES IMPLEMENTED:
+1. Fixed Position: Button and widget stay in viewport while scrolling
+2. Smooth Animations: Open/close with scale and translate animations
+3. Responsive Design: Adapts to mobile screens (480px, 360px breakpoints)
+4. Interactive States: Hover, active, focus, disabled states
+5. Custom Scrollbar: Styled scrollbar for message area
+6. Typing Indicator: Animated dots showing bot is typing
+7. Gradient Effects: Subtle color gradients on buttons
+8. Box Shadows: Depth/elevation effects on buttons and widgets
+9. Transitions: Smooth property changes on interactions
+10. Flexbox Layout: Modern flexible layout system
+11. Accessibility: Focus states, disabled states, proper contrast
+12. Mobile First: Optimized for mobile, scales up for larger screens
+
+ANIMATION TECHNIQUES:
+- @keyframes: Defined animations (pulse-glow, bob, slideUpIn, typing, fadeInUp)
+- animation property: Applies keyframe animations
+- animation-delay: Staggers animations for sequential effects
+- transition: Smooth property changes
+- transform: 2D transformations (scale, translate)
+- opacity: Transparency animations
+
+RESPONSIVE TECHNIQUES:
+- @media queries: Different styles for different screen sizes
+- calc(): Dynamic calculations for responsive sizing
+- 100vw: Viewport-relative sizing
+- max-width: Maximum constraint on sizing
+
+====================================================================================
+*/

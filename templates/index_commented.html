@@ -1,0 +1,1191 @@
+<!--
+====================================================================================
+HTML DOCUMENTATION - DSA QUEST LEARNING PLATFORM
+====================================================================================
+This is a comprehensive HTML document for a Data Structures and Algorithms (DSA)
+learning platform called "DSA Quest". It provides interactive visualizations for
+sorting algorithms, data structures, and learning features with gamification.
+====================================================================================
+-->
+
+<!--
+<!doctype html> - Document Type Declaration
+- Tells the browser this is an HTML5 document
+- Must be the very first line of any HTML file
+- Signals to use modern HTML5 parsing rules
+-->
+<!doctype html>
+
+<!--
+<html lang="en"> - Root HTML Element
+- <html> = The container for the entire webpage
+- lang="en" = Attribute that specifies the language of the page (English)
+- Everything on the page goes inside this tag
+- Opening tag: <html>
+- Closing tag: </html>
+-->
+<html lang="en">
+
+<!--
+<head> - Document Metadata Container
+- Contains information about the page (not visible on screen)
+- Includes: title, meta tags, links to stylesheets, scripts, etc.
+- Think of it as the "settings" section of your webpage
+-->
+<head>
+
+  <!--
+  <meta charset="utf-8"> - Character Encoding Declaration
+  - <meta> = Metadata tag for information about the HTML document
+  - charset="utf-8" = Attribute telling browser to use UTF-8 character encoding
+  - UTF-8 = Supports all world languages and special characters
+  - This should be the first <meta> tag in <head>
+  -->
+  <meta charset="utf-8">
+
+  <!--
+  <meta name="viewport" content="width=device-width, initial-scale=1"> - Responsive Design Meta Tag
+  - <meta> = Metadata tag
+  - name="viewport" = Attribute name for controlling mobile browser layout
+  - width=device-width = Make page width equal to device screen width
+  - initial-scale=1 = Start zoom level at 100% (1x), no zoom-in/out initially
+  - Enables responsive design for mobile devices and tablets
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+  <title>DSA Quest</title> - Page Title
+  - <title> = Sets the text that appears in browser tab
+  - "DSA Quest" = The title shown to users in their browser tab
+  - Important for SEO and user identification
+  - Only one <title> per page allowed
+  -->
+  <title>DSA Quest</title>
+
+  <!--
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> - CSS Stylesheet Link
+  - <link> = Tag to link external resources (stylesheets, fonts, etc.)
+  - rel="stylesheet" = Attribute defining relationship: this is a stylesheet
+  - href = Attribute containing the path to the CSS file
+  - {{ url_for(...) }} = Flask template syntax to generate the correct URL
+  - 'static' = Folder name where static files are stored
+  - filename='css/styles.css' = Path to the main CSS stylesheet
+  - This loads all styling rules for the page layout, colors, fonts, etc.
+  -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <!--
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}"> - Second CSS Stylesheet Link
+  - Same structure as above, but specifically for chatbot styling
+  - This loads CSS rules for the floating chatbot widget
+  -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+
+</head>
+
+<!--
+<body> - Main Content Container
+- Everything visible on the webpage goes inside <body>
+- Contains all text, images, buttons, forms, and interactive elements
+- Structure: Text -> Images -> Forms -> Sections -> Navigation
+-->
+<body>
+
+  <!--
+  <aside class="sidebar"> - Sidebar Navigation Container
+  - <aside> = Semantic HTML5 tag for content tangentially related to main content
+  - Used for sidebars, navigation, related information
+  - class="sidebar" = CSS class to style this as a fixed sidebar
+  - The sidebar is a navigation menu on the left side of the page
+  -->
+  <aside class="sidebar">
+
+    <!--
+    <div class="brand"> - Brand/Logo Section
+    - <div> = Generic container for grouping elements (no semantic meaning)
+    - class="brand" = CSS class for styling the brand area
+    - Contains the app logo and name
+    -->
+    <div class="brand">
+
+      <!--
+      <span class="brand-mark">D</span> - Brand Logo Letter
+      - <span> = Inline container for small amounts of text
+      - class="brand-mark" = CSS class to style as a colored badge
+      - "D" = The first letter of "DSA Quest"
+      - Used with CSS to create a colored square background
+      -->
+      <span class="brand-mark">D</span>
+
+      <!--
+      <div> - Text Information Container
+      - <div> = Generic container
+      - Holds the brand name and tagline
+      -->
+      <div>
+
+        <!--
+        <strong>DSA Quest</strong> - Bold Text / Strong Importance
+        - <strong> = Tag indicating strong importance, displays text in bold
+        - "DSA Quest" = The application name
+        - Semantically indicates this is important content
+        -->
+        <strong>DSA Quest</strong>
+
+        <!--
+        <small>Visual learning platform</small> - Small Text / Tagline
+        - <small> = Tag for small text, typically fine print or secondary text
+        - "Visual learning platform" = The app's tagline/description
+        -->
+        <small>Visual learning platform</small>
+
+      </div>
+    </div>
+
+    <!--
+    <nav class="nav"> - Navigation Menu
+    - <nav> = Semantic HTML5 tag for navigation links
+    - class="nav" = CSS class for styling the navigation menu
+    - Contains all links to different sections of the page
+    -->
+    <nav class="nav">
+
+      <!--
+      <a href="#home" class="nav-link active">Home</a> - Navigation Link
+      - <a> = Anchor tag for creating links
+      - href="#home" = Attribute pointing to the section with id="home"
+      - # = Hash symbol indicates linking to an element on the same page
+      - class="nav-link active" = CSS classes
+        - "nav-link" = Styles this as a navigation item
+        - "active" = Indicates this link is currently active/selected
+      - "Home" = Link text displayed to the user
+      -->
+      <a href="#home" class="nav-link active">Home</a>
+
+      <!--
+      All the following <a> tags follow the same pattern as above
+      They link to different sections: #gamification, #daily-challenges, etc.
+      The # (hash) tells the browser to jump to that section ID on the page
+      -->
+      <a href="#gamification" class="nav-link">🏆 Gamification</a>
+      <!-- href="#gamification" - Links to <section id="gamification"> -->
+      <!-- 🏆 = Emoji Unicode character for trophy/achievement -->
+
+      <a href="#daily-challenges" class="nav-link">📅 Daily</a>
+      <!-- 📅 = Emoji for calendar/daily -->
+
+      <a href="#streaks" class="nav-link">🔥 Streaks</a>
+      <!-- 🔥 = Emoji for fire (representing a "hot streak") -->
+
+      <a href="#visualize" class="nav-link">Visualize</a>
+      <a href="#searching" class="nav-link">Searching</a>
+      <a href="#linked-lists" class="nav-link">Lists</a>
+      <a href="#stacks" class="nav-link">Stack</a>
+      <a href="#recursion" class="nav-link">Recursion</a>
+      <a href="#practice" class="nav-link">Practice</a>
+      <a href="#quiz" class="nav-link">Quiz</a>
+      <a href="#compete" class="nav-link">Compete</a>
+
+    </nav>
+    <!--
+    </nav> - Closing tag for navigation
+    All nav links are now defined
+    -->
+
+  </aside>
+  <!--
+  </aside> - End of sidebar
+  The sidebar HTML is complete
+  -->
+
+  <!--
+  <main class="app-shell"> - Main Content Area
+  - <main> = Semantic HTML5 tag indicating the main content of the page
+  - class="app-shell" = CSS class to position this to the right of the sidebar
+  - Contains all the major sections and content
+  -->
+  <main class="app-shell">
+
+    <!--
+    ============================================================================
+    SECTION 1: HOME / HERO SECTION
+    ============================================================================
+    -->
+    <!--
+    <section id="home" class="page-band hero"> - Hero Section
+    - <section> = Semantic HTML5 tag for a major section of content
+    - id="home" = Unique identifier for this section (used by nav links)
+    - class="page-band hero" = CSS classes
+      - "page-band" = Styles as a page-width content block with padding
+      - "hero" = Large hero/banner section styling
+    -->
+    <section id="home" class="page-band hero">
+
+      <!--
+      <div class="hero-copy"> - Hero Text Content
+      - <div> = Container for the text and CTA button
+      - class="hero-copy" = CSS class for text styling
+      -->
+      <div class="hero-copy">
+
+        <!--
+        <p class="eyebrow">Gamified DSA learning</p> - Eyebrow Text
+        - <p> = Paragraph tag for text content
+        - class="eyebrow" = CSS class for small, uppercase category text
+        - "Gamified DSA learning" = Short description of what this section is
+        -->
+        <p class="eyebrow">Gamified DSA learning</p>
+
+        <!--
+        <h1>Learn algorithms by watching every decision happen.</h1> - Main Heading
+        - <h1> = Heading 1 (largest, most important heading)
+        - Only one <h1> per page (for SEO and accessibility)
+        - This is the main headline for the page
+        -->
+        <h1>Learn algorithms by watching every decision happen.</h1>
+
+        <!--
+        <p>Explore animated simulations...</p> - Subheading Paragraph
+        - <p> = Paragraph tag
+        - Longer description of the platform's features
+        -->
+        <p>Explore animated simulations, connect each step to Python and Java, then lock in the concept with practice,
+          quizzes, XP, badges, and weekly challenges.</p>
+
+        <!--
+        <a href="#visualize" class="primary-action">Start visualizing</a> - Call-to-Action Button (Link)
+        - <a> = Anchor tag acting as a button
+        - href="#visualize" = Links to the visualize section below
+        - class="primary-action" = CSS class styling this as a prominent button
+        - "Start visualizing" = Button text
+        - Styled with CSS to look like a clickable button
+        -->
+        <a href="#visualize" class="primary-action">Start visualizing</a>
+
+      </div>
+      <!--
+      </div> - End of hero-copy
+      -->
+
+      <!--
+      <div class="dashboard-grid"> - Dashboard Stats Grid
+      - <div> = Container for grid layout
+      - class="dashboard-grid" = CSS class creating a 2-column grid layout
+      - Shows key metrics/stats
+      -->
+      <div class="dashboard-grid">
+
+        <!--
+        <div class="metric"> - Individual Metric Card (Level)
+        - <div> = Container for one stat
+        - class="metric" = CSS class for card styling
+        -->
+        <div class="metric">
+          <!--
+          <span>Level</span> - Metric Label
+          - <span> = Inline text container
+          - "Level" = Label for the stat (what is being shown)
+          -->
+          <span>Level</span>
+
+          <!--
+          <strong id="dashboard-level">1</strong> - Metric Value
+          - <strong> = Bold, important text
+          - id="dashboard-level" = Unique ID for JavaScript to target and update
+          - "1" = Initial value (will be updated by JavaScript)
+          -->
+          <strong id="dashboard-level">1</strong>
+        </div>
+
+        <!--
+        Metric: XP (Experience Points)
+        Same structure as above but for Experience Points
+        -->
+        <div class="metric">
+          <span>XP</span>
+          <strong id="dashboard-xp">0</strong>
+        </div>
+
+        <!--
+        Metric: Streak
+        Shows current streak with a fire emoji
+        -->
+        <div class="metric">
+          <span>Streak</span>
+          <strong><span id="dashboard-streak">0</span> days 🔥</strong>
+          <!--
+          <span id="dashboard-streak">0</span> - Updatable streak number
+          - Wrapped in <span> with id for JavaScript to update
+          - 🔥 = Fire emoji (literal Unicode character)
+          -->
+        </div>
+
+        <!--
+        Metric: Problems Solved
+        Shows the count of completed problems
+        -->
+        <div class="metric">
+          <span>Problems Solved</span>
+          <strong id="dashboard-solved">0</strong>
+        </div>
+
+      </div>
+      <!--
+      </div> - End of dashboard-grid
+      -->
+
+    </section>
+    <!--
+    </section> - End of home section
+    Hero section complete
+    -->
+
+
+    <!--
+    ============================================================================
+    SECTION 2: GAMIFICATION DASHBOARD
+    ============================================================================
+    -->
+    <!--
+    <!-- GAMIFICATION DASHBOARD --> - HTML Comment
+    - <!-- ... --> = HTML comment syntax
+    - Comments are not displayed on the page
+    - Used for documentation and organization
+    -->
+    <!--
+    <section id="gamification" class="page-band gamification-section"> - Gamification Section
+    - id="gamification" = Unique ID for navigation
+    - class="page-band gamification-section" = CSS classes for layout and styling
+    -->
+    <section id="gamification" class="page-band gamification-section">
+
+      <!--
+      <div class="section-heading"> - Section Header Container
+      - <div> = Container grouping heading and description
+      - class="section-heading" = CSS class for consistent heading styling
+      -->
+      <div class="section-heading">
+        <p class="eyebrow">Gamification</p>
+        <h2>Your Learning Journey</h2>
+        <!--
+        <h2> = Heading level 2 (subheading under <h1>)
+        - Lower hierarchy than <h1>
+        - Used for section titles
+        -->
+      </div>
+
+      <!--
+      <div class="gamification-hub"> - Cards Container
+      - <div> = Grid container
+      - class="gamification-hub" = CSS class creating a grid of cards
+      - Houses multiple gamification cards
+      -->
+      <div class="gamification-hub">
+
+        <!--
+        ====== CARD 1: XP & LEVEL ======
+        -->
+        <!--
+        <div class="gami-card xp-card"> - Experience/Level Card
+        - class="gami-card" = Base card styling
+        - class="xp-card" = Specific styling for XP card
+        -->
+        <div class="gami-card xp-card">
+
+          <!--
+          <div class="card-header"> - Card Title Area
+          - <div> = Container
+          - class="card-header" = Styles the header of the card
+          -->
+          <div class="card-header">
+            <h3>Experience</h3>
+            <!--
+            <h3> = Heading level 3
+            - Third level of hierarchy
+            - Used for card titles
+            -->
+
+            <!--
+            <span class="level-badge" id="level-display">Beginner</span> - Level Badge
+            - <span> = Inline text container
+            - class="level-badge" = Styling as a badge/label
+            - id="level-display" = ID for JavaScript updates (Beginner, Intermediate, etc.)
+            - "Beginner" = Initial player level
+            -->
+            <span class="level-badge" id="level-display">Beginner</span>
+          </div>
+
+          <!--
+          <div class="xp-progress"> - Progress Bar Section
+          - <div> = Container for progress visualization
+          - class="xp-progress" = CSS class for progress bar styling
+          -->
+          <div class="xp-progress">
+
+            <!--
+            <div class="xp-bar-wrapper"> - Progress Bar Container
+            - <div> = Wrapper container
+            - class="xp-bar-wrapper" = CSS for background of progress bar
+            -->
+            <div class="xp-bar-wrapper">
+
+              <!--
+              <div class="xp-bar" id="xp-bar" style="width: 0%"></div> - Filled Progress Bar
+              - <div> = Visual bar element
+              - class="xp-bar" = CSS for the filled portion
+              - id="xp-bar" = ID for JavaScript to update width percentage
+              - style="width: 0%" = Inline CSS style
+                - width = How much of the bar is filled
+                - 0% = Initially empty (0 XP earned)
+                - JavaScript changes this value as user gains XP
+              -->
+              <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+
+            </div>
+
+            <!--
+            <p class="xp-text">...</p> - XP Text Display
+            - <p> = Paragraph
+            - class="xp-text" = CSS styling
+            -->
+            <p class="xp-text">
+              <span id="xp-current">0</span> / <span id="xp-next">100</span> XP
+              <!--
+              <span id="xp-current">0</span> = Current XP (updated by JavaScript)
+              / = Separator (shows fraction)
+              <span id="xp-next">100</span> = XP needed for next level
+              "0 / 100 XP" = Shows "0 out of 100 XP towards next level"
+              -->
+            </p>
+          </div>
+
+          <!--
+          <div class="xp-stats"> - Statistics Container
+          - <div> = Container for stats
+          - class="xp-stats" = CSS for layout
+          -->
+          <div class="xp-stats">
+
+            <!--
+            <div class="stat-item"> - Individual Stat (Total XP)
+            - <div> = Container for stat
+            - class="stat-item" = Styling for each stat line
+            -->
+            <div class="stat-item">
+              <span class="stat-label">Total XP</span>
+              <!--
+              <span class="stat-label">Total XP</span> = Stat label
+              - <span> = Inline container
+              - class="stat-label" = CSS styling for label
+              -->
+
+              <span class="stat-value" id="total-xp">0</span>
+              <!--
+              <span class="stat-value" id="total-xp">0</span> = Stat value
+              - <span> = Inline container
+              - class="stat-value" = CSS styling for values (usually bold/larger)
+              - id="total-xp" = ID for JavaScript updates
+              - "0" = Initial total XP
+              -->
+            </div>
+
+            <!--
+            <div class="stat-item"> - Individual Stat (Current Level)
+            - Same structure as above
+            -->
+            <div class="stat-item">
+              <span class="stat-label">Level</span>
+              <span class="stat-value" id="current-level">1</span>
+            </div>
+
+          </div>
+
+        </div>
+        <!--
+        </div> - End of XP Card
+        -->
+
+
+        <!--
+        ====== CARD 2: STREAK ======
+        -->
+        <!--
+        <div class="gami-card streak-card"> - Streak Card
+        - class="gami-card" = Base card styling
+        - class="streak-card" = Specific streak styling
+        -->
+        <div class="gami-card streak-card">
+          <div class="card-header">
+            <h3>Streak 🔥</h3>
+            <!-- 🔥 = Fire emoji literal character in the HTML -->
+          </div>
+
+          <!--
+          <div class="streak-display"> - Large Streak Number Display
+          - <div> = Container
+          - class="streak-display" = CSS for prominent display
+          -->
+          <div class="streak-display">
+
+            <!--
+            <div class="streak-number" id="streak-number">0</div> - Big Streak Number
+            - <div> = Container
+            - class="streak-number" = CSS for large, centered number
+            - id="streak-number" = ID for JavaScript updates
+            - "0" = Initial streak count (0 days)
+            -->
+            <div class="streak-number" id="streak-number">0</div>
+
+            <!--
+            <p class="streak-label">Days</p> - Label Under Number
+            - <p> = Paragraph
+            - class="streak-label" = CSS styling
+            - "Days" = Indicates the number represents days
+            -->
+            <p class="streak-label">Days</p>
+
+          </div>
+
+          <!--
+          <div class="streak-stats"> - Streak Statistics
+          - <div> = Container
+          - class="streak-stats" = CSS for stat layout
+          - Contains longest streak and practice days
+          -->
+          <div class="streak-stats">
+
+            <div class="stat-item">
+              <span class="stat-label">Longest</span>
+              <span class="stat-value" id="longest-streak">0</span>
+              <!-- "Longest" = Longest streak ever achieved -->
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-label">Practice Days</span>
+              <span class="stat-value" id="practice-days">0</span>
+              <!-- "Practice Days" = Total days practiced on the platform -->
+            </div>
+
+          </div>
+
+        </div>
+        <!--
+        </div> - End of Streak Card
+        -->
+
+
+        <!--
+        ====== CARD 3: ACHIEVEMENTS/BADGES ======
+        -->
+        <!--
+        <div class="gami-card achievements-card"> - Achievements Card
+        - class="gami-card" = Base card styling
+        - class="achievements-card" = Specific achievements styling
+        -->
+        <div class="gami-card achievements-card">
+          <div class="card-header">
+            <h3>Achievements</h3>
+          </div>
+
+          <!--
+          <div class="achievements-grid" id="achievements-display"> - Badges Grid
+          - <div> = Container
+          - class="achievements-grid" = CSS for grid layout of badges
+          - id="achievements-display" = ID for JavaScript to populate with badges
+          - Note: This container is empty in HTML
+          -->
+          <div class="achievements-grid" id="achievements-display">
+            <!-- Populated by JavaScript -->
+            <!--
+            Comment indicating this element will be filled by JavaScript
+            JavaScript will add badge elements here dynamically
+            -->
+          </div>
+
+          <!--
+          <p class="achievement-count">...</p> - Badge Counter
+          - <p> = Paragraph
+          - class="achievement-count" = CSS styling
+          -->
+          <p class="achievement-count">
+            <span id="badge-count">0</span> / <span id="total-badges">12</span> earned
+            <!--
+            <span id="badge-count">0</span> = Current badges earned (updated by JS)
+            / = Separator
+            <span id="total-badges">12</span> = Total possible badges
+            "0 / 12 earned" = Shows "0 out of 12 badges earned"
+            -->
+          </p>
+
+        </div>
+        <!--
+        </div> - End of Achievements Card
+        -->
+
+
+        <!--
+        ====== CARD 4: STATISTICS ======
+        -->
+        <!--
+        <div class="gami-card stats-card"> - Statistics Card
+        - class="gami-card" = Base card styling
+        - class="stats-card" = Specific stats styling
+        -->
+        <div class="gami-card stats-card">
+          <div class="card-header">
+            <h3>Statistics</h3>
+          </div>
+
+          <!--
+          <div class="stats-list"> - Statistics List
+          - <div> = Container
+          - class="stats-list" = CSS for list layout
+          -->
+          <div class="stats-list">
+
+            <!--
+            ====== STAT: Problems Solved ======
+            -->
+            <!--
+            <div class="stat-row"> - Single Stat Row
+            - <div> = Container for label + value
+            - class="stat-row" = CSS for horizontal layout
+            -->
+            <div class="stat-row">
+              <span>Problems Solved</span>
+              <!--
+              <span>Problems Solved</span> = Stat label
+              -->
+
+              <strong id="stat-solved">0</strong>
+              <!--
+              <strong id="stat-solved">0</strong> = Stat value
+              - <strong> = Bold text
+              - id="stat-solved" = ID for JavaScript updates
+              - "0" = Initial count of solved problems
+              -->
+            </div>
+
+            <!--
+            ====== STAT: Quizzes Completed ======
+            -->
+            <div class="stat-row">
+              <span>Quizzes Completed</span>
+              <strong id="stat-quizzes">0</strong>
+              <!-- Tracks number of quizzes completed -->
+            </div>
+
+            <!--
+            ====== STAT: Contests Entered ======
+            -->
+            <div class="stat-row">
+              <span>Contests Entered</span>
+              <strong id="stat-contests">0</strong>
+              <!-- Tracks number of competitive contests participated in -->
+            </div>
+
+            <!--
+            ====== STAT: Total Study Time ======
+            -->
+            <div class="stat-row">
+              <span>Total Study Time</span>
+              <strong id="stat-time">0 hrs</strong>
+              <!-- Tracks total hours spent on the platform -->
+            </div>
+
+          </div>
+
+        </div>
+        <!--
+        </div> - End of Stats Card
+        -->
+
+      </div>
+      <!--
+      </div> - End of gamification-hub
+      All gamification cards complete
+      -->
+
+    </section>
+    <!--
+    </section> - End of gamification section
+    -->
+
+
+    <!--
+    ============================================================================
+    SECTION 3: DAILY CHALLENGES
+    ============================================================================
+    -->
+    <!--
+    <!-- DAILY CHALLENGES --> - HTML Comment
+    -->
+    <!--
+    <section id="daily-challenges" class="page-band daily-challenges-section"> - Daily Challenges Section
+    - id="daily-challenges" = Unique ID for navigation
+    - class="page-band daily-challenges-section" = CSS classes
+    -->
+    <section id="daily-challenges" class="page-band daily-challenges-section">
+
+      <!--
+      <div class="section-heading"> - Section Header
+      -->
+      <div class="section-heading">
+        <p class="eyebrow">Daily</p>
+        <h2>Today's Challenges</h2>
+        <p>Complete challenges to earn XP and maintain your streak!</p>
+        <!-- Instructional text for users -->
+      </div>
+
+      <!--
+      <div class="challenges-grid" id="challenges-container"> - Challenges Grid Container
+      - <div> = Container for challenges
+      - class="challenges-grid" = CSS for grid layout
+      - id="challenges-container" = ID for JavaScript to populate with challenge cards
+      -->
+      <div class="challenges-grid" id="challenges-container">
+        <!-- Populated by JavaScript -->
+        <!--
+        JavaScript will dynamically add challenge cards here
+        Each challenge shows difficulty, description, rewards, etc.
+        -->
+      </div>
+
+    </section>
+    <!--
+    </section> - End of daily challenges section
+    -->
+
+
+    <!--
+    ============================================================================
+    SECTION 4: STREAKS & MILESTONES
+    ============================================================================
+    -->
+    <!--
+    <!-- STREAKS & PROGRESS --> - HTML Comment
+    -->
+    <!--
+    <section id="streaks" class="page-band streaks-section"> - Streaks & Milestones Section
+    - id="streaks" = Unique ID for navigation
+    - class="page-band streaks-section" = CSS classes
+    -->
+    <section id="streaks" class="page-band streaks-section">
+
+      <!--
+      <div class="section-heading"> - Section Header
+      -->
+      <div class="section-heading">
+        <p class="eyebrow">Progress</p>
+        <h2>Streaks & Milestones</h2>
+      </div>
+
+      <!--
+      <div class="streaks-grid"> - Streaks Grid Container
+      - <div> = Container
+      - class="streaks-grid" = CSS for 3-column grid layout
+      - Contains three panels: current streak, best streak, milestones
+      -->
+      <div class="streaks-grid">
+
+        <!--
+        ====== PANEL 1: CURRENT STREAK ======
+        -->
+        <!--
+        <div class="streak-panel"> - Current Streak Panel
+        - <div> = Container
+        - class="streak-panel" = CSS for panel card styling
+        -->
+        <div class="streak-panel">
+
+          <!--
+          <div class="streak-header"> - Panel Header
+          - <div> = Container
+          - class="streak-header" = CSS for header styling
+          -->
+          <div class="streak-header">
+            <h3>Current Streak</h3>
+
+            <!--
+            <span class="streak-icon">🔥</span> - Emoji Icon
+            - <span> = Inline container
+            - class="streak-icon" = CSS styling
+            - 🔥 = Fire emoji (literal Unicode character in HTML)
+            -->
+            <span class="streak-icon">🔥</span>
+          </div>
+
+          <!--
+          <div class="streak-content"> - Panel Content
+          - <div> = Container
+          - class="streak-content" = CSS styling
+          -->
+          <div class="streak-content">
+
+            <!--
+            <div class="big-number" id="current-streak-display">0</div> - Large Streak Display
+            - <div> = Container
+            - class="big-number" = CSS for large, centered text
+            - id="current-streak-display" = ID for JavaScript updates
+            - "0" = Initial streak (0 days)
+            -->
+            <div class="big-number" id="current-streak-display">0</div>
+
+            <!--
+            <p>days of consistent learning</p> - Description
+            - <p> = Paragraph
+            -->
+            <p>days of consistent learning</p>
+
+            <!--
+            <div class="streak-actions"> - Action Buttons Container
+            - <div> = Container
+            - class="streak-actions" = CSS for button layout
+            -->
+            <div class="streak-actions">
+
+              <!--
+              <button class="secondary-action" onclick="checkDailyLogin()">Check In Today</button> - Check-In Button
+              - <button> = Clickable button element
+              - class="secondary-action" = CSS for secondary button styling (not primary)
+              - onclick="checkDailyLogin()" = Inline JavaScript event handler
+                - onclick = Event attribute that runs when button is clicked
+                - checkDailyLogin() = JavaScript function to call
+              - "Check In Today" = Button text shown to user
+              -->
+              <button class="secondary-action" onclick="checkDailyLogin()">Check In Today</button>
+
+            </div>
+
+          </div>
+
+        </div>
+        <!--
+        </div> - End of current streak panel
+        -->
+
+
+        <!--
+        ====== PANEL 2: BEST STREAK ======
+        -->
+        <!--
+        <div class="streak-panel"> - Best Streak Panel
+        - Same structure as current streak panel
+        - Shows the longest streak ever achieved
+        -->
+        <div class="streak-panel">
+          <div class="streak-header">
+            <h3>Best Streak</h3>
+
+            <!--
+            <span class="streak-icon">⭐</span> - Star Emoji
+            - ⭐ = Star emoji (different from the fire emoji above)
+            -->
+            <span class="streak-icon">⭐</span>
+          </div>
+
+          <div class="streak-content">
+
+            <!--
+            <div class="big-number" id="best-streak-display">0</div> - Best Streak Number
+            - id="best-streak-display" = ID for JavaScript updates
+            - Shows the personal best streak
+            -->
+            <div class="big-number" id="best-streak-display">0</div>
+
+            <p>consecutive days</p>
+
+          </div>
+
+        </div>
+        <!--
+        </div> - End of best streak panel
+        -->
+
+
+        <!--
+        ====== PANEL 3: MILESTONES ======
+        -->
+        <!--
+        <div class="streak-panel milestones-panel"> - Milestones Panel
+        - <div> = Container
+        - class="streak-panel milestones-panel" = Two CSS classes
+          - "streak-panel" = Base panel styling
+          - "milestones-panel" = Specific styling for milestones
+        -->
+        <div class="streak-panel milestones-panel">
+
+          <!--
+          <div class="streak-header"> - Panel Header
+          -->
+          <div class="streak-header">
+            <h3>Milestones</h3>
+
+            <!--
+            <span class="streak-icon">🎯</span> - Target Emoji
+            - 🎯 = Target/goal emoji
+            -->
+            <span class="streak-icon">🎯</span>
+          </div>
+
+          <!--
+          <div class="milestones-list"> - Milestones List Container
+          - <div> = Container
+          - class="milestones-list" = CSS for list layout
+          - Contains three milestone achievements
+          -->
+          <div class="milestones-list">
+
+            <!--
+            ====== MILESTONE 1: 7-DAY WARRIOR ======
+            -->
+            <!--
+            <div class="milestone" data-target="7"> - Individual Milestone
+            - <div> = Container
+            - class="milestone" = CSS styling for milestone
+            - data-target="7" = Custom HTML5 data attribute
+              - data-* = Allows storing custom data in HTML
+              - target="7" = This milestone requires 7 days to complete
+              - JavaScript reads this value to track progress
+            -->
+            <div class="milestone" data-target="7">
+
+              <!--
+              <span class="milestone-icon">🥉</span> - Bronze Medal Emoji
+              - <span> = Inline container
+              - class="milestone-icon" = CSS styling
+              - 🥉 = Bronze medal emoji (third place)
+              - Shows achievement level
+              -->
+              <span class="milestone-icon">🥉</span>
+
+              <!--
+              <div class="milestone-text"> - Milestone Text Container
+              - <div> = Container
+              - class="milestone-text" = CSS styling
+              -->
+              <div class="milestone-text">
+
+                <!--
+                <p>7-Day Warrior</p> - Milestone Name
+                - <p> = Paragraph
+                - "7-Day Warrior" = Achievement name/title
+                -->
+                <p>7-Day Warrior</p>
+
+                <!--
+                <progress value="0" max="7"></progress> - Progress Bar
+                - <progress> = HTML5 progress bar element
+                - Shows visual progress towards milestone
+                - value="0" = Current progress (0 out of 7)
+                - max="7" = Maximum value (7 days for this milestone)
+                - JavaScript updates the "value" as user progresses
+                - The bar fills up visually as value increases
+                -->
+                <progress value="0" max="7"></progress>
+
+              </div>
+
+            </div>
+            <!--
+            </div> - End of 7-day milestone
+            -->
+
+
+            <!--
+            ====== MILESTONE 2: 30-DAY LEGEND ======
+            -->
+            <!--
+            <div class="milestone" data-target="30"> - 30-Day Milestone
+            - data-target="30" = This milestone requires 30 days
+            -->
+            <div class="milestone" data-target="30">
+
+              <!--
+              <span class="milestone-icon">🥈</span> - Silver Medal Emoji
+              - 🥈 = Silver medal emoji (second place)
+              - Shows achievement level (higher than bronze)
+              -->
+              <span class="milestone-icon">🥈</span>
+
+              <div class="milestone-text">
+                <p>30-Day Legend</p>
+                <!--
+                <progress value="0" max="30"></progress> - Progress Bar
+                - max="30" = Maximum value is 30 days
+                -->
+                <progress value="0" max="30"></progress>
+              </div>
+
+            </div>
+            <!--
+            </div> - End of 30-day milestone
+            -->
+
+
+            <!--
+            ====== MILESTONE 3: 100-DAY MASTER ======
+            -->
+            <!--
+            <div class="milestone" data-target="100"> - 100-Day Milestone
+            - data-target="100" = This milestone requires 100 days
+            -->
+            <div class="milestone" data-target="100">
+
+              <!--
+              <span class="milestone-icon">🥇</span> - Gold Medal Emoji
+              - 🥇 = Gold medal emoji (first place)
+              - Shows highest achievement level
+              -->
+              <span class="milestone-icon">🥇</span>
+
+              <div class="milestone-text">
+                <p>100-Day Master</p>
+                <!--
+                <progress value="0" max="100"></progress> - Progress Bar
+                - max="100" = Maximum value is 100 days
+                -->
+                <progress value="0" max="100"></progress>
+              </div>
+
+            </div>
+            <!--
+            </div> - End of 100-day milestone
+            -->
+
+          </div>
+          <!--
+          </div> - End of milestones-list
+          -->
+
+        </div>
+        <!--
+        </div> - End of milestones-panel
+        -->
+
+      </div>
+      <!--
+      </div> - End of streaks-grid
+      -->
+
+    </section>
+    <!--
+    </section> - End of streaks section
+    -->
+
+
+    <!--
+    ============================================================================
+    NOTE: REMAINING SECTIONS TRUNCATED FOR DOCUMENTATION
+    ============================================================================
+    The file continues with:
+    - SECTION 5: VISUALIZE (Sorting Algorithms - Bubble Sort, Quick Sort, etc.)
+    - SECTION 6: LINKED LISTS (Singly, Doubly, Circular Linked Lists)
+    - SECTION 7: STACKS (Stack operations visualization)
+    - SECTION 8: RECURSION (Recursive algorithms)
+    And more sections...
+
+    All sections follow similar patterns:
+    1. <section> tag with id and classes
+    2. Section heading with eyebrow, h2, description
+    3. Content grids with interactive elements
+    4. Input fields for values
+    5. Buttons for controls (Start, Play, Pause, etc.)
+    6. Display areas for visualization (bars, nodes, etc.)
+    7. Code tabs showing Python and Java implementations
+    ============================================================================
+    -->
+
+
+  </main>
+  <!--
+  </main> - End of main content area
+  -->
+
+</body>
+<!--
+</body> - End of body
+-->
+
+</html>
+<!--
+</html> - End of HTML document
+- This closing tag is the very last tag in the HTML file
+- All open tags must be closed in reverse order
+- The document is now complete
+-->
+
+<!--
+====================================================================================
+SUMMARY OF HTML STRUCTURE
+====================================================================================
+
+DOCUMENT HIERARCHY:
+├── <!DOCTYPE html>
+└── <html lang="en">
+    ├── <head>
+    │   ├── <meta charset="utf-8">
+    │   ├── <meta name="viewport">
+    │   ├── <title>DSA Quest</title>
+    │   ├── <link> stylesheets
+    │   └── ... other metadata
+    │
+    └── <body>
+        ├── <aside class="sidebar">
+        │   ├── Brand/Logo
+        │   └── Navigation (<nav>)
+        │       └── Links to sections (#home, #gamification, etc.)
+        │
+        └── <main class="app-shell">
+            ├── Section 1: Home/Hero
+            ├── Section 2: Gamification
+            ├── Section 3: Daily Challenges
+            ├── Section 4: Streaks & Milestones
+            ├── Section 5: Visualizations
+            └── ... more sections
+
+SEMANTIC HTML5 TAGS USED:
+- <html> - Root container
+- <head> - Metadata container
+- <body> - Main content container
+- <main> - Primary content area
+- <section> - Thematic grouping of content
+- <aside> - Sidebar / auxiliary content
+- <nav> - Navigation links
+- <header> / <footer> - Header and footer sections
+- <h1> - <h6> - Headings (hierarchy levels)
+- <p> - Paragraphs
+- <a> - Links/anchors
+- <button> - Clickable buttons
+- <input> - Form inputs
+- <label> - Form field labels
+- <strong> - Strong importance (bold)
+- <span> - Generic inline container
+- <div> - Generic block container
+
+KEY CONCEPTS:
+1. IDs vs Classes:
+   - id="..." = Unique identifier (used for navigation, single targeting)
+   - class="..." = CSS class (reusable for styling multiple elements)
+
+2. Data Attributes:
+   - data-target="7" = Custom HTML5 attributes for storing JavaScript data
+   - Can be read by JavaScript to store and access values
+
+3. Event Handlers:
+   - onclick="function()" = Inline JavaScript execution on click
+
+4. Semantic Structure:
+   - Proper use of semantic tags improves accessibility and SEO
+   - Screen readers understand the document structure better
+
+5. Responsive Design:
+   - meta viewport tag ensures mobile responsiveness
+   - CSS classes control different layouts
+
+6. JavaScript Integration:
+   - Elements with ids can be accessed and updated by JavaScript
+   - Elements with data-* attributes store application-specific data
+   - Many containers are left empty for JavaScript to populate
+
+====================================================================================
